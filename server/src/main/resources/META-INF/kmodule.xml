@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="bigFiveRules" packages="bigFive">
+        <ksession name="ksession-bigfive-rules"/>
+    </kbase>
+
+    <kbase name="careerTest" packages="careerTest">
+        <ksession name="ksession-careerTest-rules"/>
+    </kbase>
+</kmodule>
