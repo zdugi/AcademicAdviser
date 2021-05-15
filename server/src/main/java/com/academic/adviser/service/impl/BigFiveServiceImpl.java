@@ -48,9 +48,11 @@ public class BigFiveServiceImpl implements BigFiveService {
         InputStream template = RunTemplateEngine.class.getResourceAsStream("/bigFive/big-five-questions.drl");
         try {
             KieSession session = createKieSessionFromDRL(new String(template.readAllBytes(), StandardCharsets.UTF_8));
-            for(BigFiveAnswerDTO answerDTO : answers.getAnswers())
-                session.insert(answerDTO);
+
             session.insert(bigFiveResults);
+            for(BigFiveAnswerDTO answerDTO : answers.getAnswers()) {
+                session.insert(answerDTO);
+            }
 
             session.fireAllRules();
 
@@ -58,6 +60,9 @@ public class BigFiveServiceImpl implements BigFiveService {
             System.out.println(bigFiveResults.getConscientiousness());
             System.out.println(bigFiveResults.getExtroversion());
             System.out.println(bigFiveResults.getNeuroticism());
+            System.out.println();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

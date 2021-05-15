@@ -11,7 +11,7 @@ import com.academic.adviser.model.BigFiveResults;
 template "classification-rules"
 
 rule "BigFive Question_@{id}"
-no-loop true
+lock-on-active true
 when
     $p: BigFiveAnswerDTO(id == @{id})
     $r: BigFiveResults()

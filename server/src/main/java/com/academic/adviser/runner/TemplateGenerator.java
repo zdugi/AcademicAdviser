@@ -1,11 +1,8 @@
 package com.academic.adviser.runner;
 
 import com.academic.adviser.RunTemplateEngine;
-import com.academic.adviser.constants.BigFiveTrait;
-import com.academic.adviser.constants.Operation;
 import com.academic.adviser.dto.BigFiveTemplateDTO;
 import com.academic.adviser.mapper.BigFiveTemplateMapper;
-import com.academic.adviser.model.BigFiveQuestion;
 import com.academic.adviser.repository.BigFiveQuestionsRepository;
 import org.drools.template.ObjectDataCompiler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
+
 
 public class TemplateGenerator implements ApplicationRunner {
 

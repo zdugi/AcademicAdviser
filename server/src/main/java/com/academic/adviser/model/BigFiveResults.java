@@ -51,7 +51,6 @@ public class BigFiveResults {
     }
 
     public void addExtroversion(Integer extroversion) {
-        System.out.println("ssssssss");
         this.extroversion += extroversion;
     }
 
