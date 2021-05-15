@@ -1,0 +1,22 @@
+template header
+id
+trait
+operation
+
+package bigFive;
+
+import com.dto.Points;
+import com.model.BigFiveResults;
+
+template "classification-rules"
+
+rule "BigFive Question_@{id}"
+when
+    $p: Points(id == @{id}),
+    $r: BigFiveResults()
+then
+    modify ($r){ @{operation}@{trait}($p.points)};
+end
+
+end template
+
