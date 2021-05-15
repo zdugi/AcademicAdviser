@@ -16,9 +16,11 @@ public class BigFiveQuestion {
     private String text;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private BigFiveTrait trait;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Operation operation;
 
     public BigFiveQuestion() {}
