@@ -25,7 +25,7 @@ public class BigFiveController {
     @PostMapping("/survey")
     public ResponseEntity<Void> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO) {
         // TODO
-        System.out.println(surveyDTO.getAnswers().get(0).getScore());
+        bigFiveService.submitBigFiveSurvey(surveyDTO);
         return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
     }
 }

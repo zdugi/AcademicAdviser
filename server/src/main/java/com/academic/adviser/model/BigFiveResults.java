@@ -15,7 +15,7 @@ public class BigFiveResults {
     private Integer extroversion;
 
     @Column(nullable = false)
-    private Integer areeableness;
+    private Integer agreeableness;
 
     @Column(nullable = false)
     private Integer conscientiousness;
@@ -28,15 +28,15 @@ public class BigFiveResults {
 
     public BigFiveResults() {
         this.extroversion = TestConstants.EXTROVERSION_START;
-        this.areeableness = TestConstants.AGREEABLENESS_START;
+        this.agreeableness = TestConstants.AGREEABLENESS_START;
         this.conscientiousness = TestConstants.CONSCIENTIOUSNESS_START;
         this.neuroticism = TestConstants.NEUROTICISM_START;
         this.openness = TestConstants.OPENNESS_START;
     }
 
-    public BigFiveResults(Integer extroversion, Integer areeableness, Integer conscientiousness, Integer neuroticism, Integer openness) {
+    public BigFiveResults(Integer extroversion, Integer agreeableness, Integer conscientiousness, Integer neuroticism, Integer openness) {
         this.extroversion = extroversion;
-        this.areeableness = areeableness;
+        this.agreeableness = agreeableness;
         this.conscientiousness = conscientiousness;
         this.neuroticism = neuroticism;
         this.openness = openness;
@@ -51,15 +51,24 @@ public class BigFiveResults {
     }
 
     public void addExtroversion(Integer extroversion) {
+        System.out.println("ssssssss");
         this.extroversion += extroversion;
     }
 
-    public Integer getAreeableness() {
-        return areeableness;
+    public void subExtroversion(Integer extroversion) {
+        this.extroversion -= extroversion;
     }
 
-    public void addAreeableness(Integer areeableness) {
-        this.areeableness += areeableness;
+    public Integer getAgreeableness() {
+        return agreeableness;
+    }
+
+    public void addAgreeableness(Integer agreeableness) {
+        this.agreeableness += agreeableness;
+    }
+
+    public void subAgreeableness(Integer agreeableness) {
+        this.agreeableness -= agreeableness;
     }
 
     public Integer getConscientiousness() {
@@ -70,6 +79,10 @@ public class BigFiveResults {
         this.conscientiousness += conscientiousness;
     }
 
+    public void subConscientiousness(Integer conscientiousness) {
+        this.conscientiousness -= conscientiousness;
+    }
+
     public Integer getNeuroticism() {
         return neuroticism;
     }
@@ -78,11 +91,19 @@ public class BigFiveResults {
         this.neuroticism += neuroticism;
     }
 
+    public void subNeuroticism(Integer neuroticism) {
+        this.neuroticism -= neuroticism;
+    }
+
     public Integer getOpenness() {
         return openness;
     }
 
     public void addOpenness(Integer openness) {
         this.openness += openness;
+    }
+
+    public void subOpenness(Integer openness) {
+        this.openness -= openness;
     }
 }

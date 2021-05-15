@@ -5,17 +5,18 @@ operation
 
 package bigFive;
 
-import com.dto.Points;
-import com.model.BigFiveResults;
+import com.academic.adviser.dto.BigFiveAnswerDTO;
+import com.academic.adviser.model.BigFiveResults;
 
 template "classification-rules"
 
 rule "BigFive Question_@{id}"
+no-loop true
 when
-    $p: Points(id == @{id}),
+    $p: BigFiveAnswerDTO(id == @{id})
     $r: BigFiveResults()
 then
-    modify ($r){ @{operation}@{trait}($p.points)};
+    modify ($r) { @{operation}@{trait}($p.getScore()) };
 end
 
 end template
