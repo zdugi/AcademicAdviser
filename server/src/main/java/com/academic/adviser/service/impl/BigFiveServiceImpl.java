@@ -66,6 +66,19 @@ public class BigFiveServiceImpl implements BigFiveService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("pass bigFive");
+
+        // Group 1
+        InputStream template_group2 =
+                RunTemplateEngine.class.getResourceAsStream("/bigFive/big-five-traits-to-pro-questions.drl");
+        try {
+            KieSession session = createKieSessionFromDRL(new String(template_group2.readAllBytes(), StandardCharsets.UTF_8));
+            session.insert(bigFiveResults);
+            session.fireAllRules();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private KieSession createKieSessionFromDRL(String drl){
