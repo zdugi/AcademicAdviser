@@ -41,15 +41,25 @@ export default {
   methods: {
       submit (event) {
           event.preventDefault()
+
+          let payload = {
+              'answers': []
+          }
+
           // check
           for (let q of this.survey) {
               if (q.picked == null) {
                   alert('Fill all!')
                   return
               }
+
+              payload['answers'].push({
+                  'id': parseInt(q.id),
+                  'score': parseInt(q.picked)
+              })
           }
 
-          axios.post('http://localhost:8080/api/big-five/survey').then(
+          axios.post('http://localhost:8080/api/big-five/survey', payload).then(
               () => {
                   alert('Submited :)')
               }
@@ -59,7 +69,7 @@ export default {
   mounted() {
       axios.get('http://localhost:8080/api/big-five/survey').then(
           response => {
-              for (let question of response.data) {
+              for (let question of response.data.questionDTOList) {
                 this.survey.push({
                     id: question.id,
                     text: question.text,

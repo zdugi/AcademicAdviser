@@ -1,9 +1,8 @@
 package com.academic.adviser.service;
 
-import com.academic.adviser.dto.BigFiveQuestionDTO;
+import com.academic.adviser.dto.BigFiveSurveyDTO;
 
-import java.util.List;
 
 public interface BigFiveService {
-    List<BigFiveQuestionDTO> getBigFiveQuestions();
+    BigFiveSurveyDTO getBigFiveQuestions();
 }

@@ -1,6 +1,7 @@
 package com.academic.adviser.service.impl;
 
 import com.academic.adviser.dto.BigFiveQuestionDTO;
+import com.academic.adviser.dto.BigFiveSurveyDTO;
 import com.academic.adviser.mapper.BigFiveQuestionMapper;
 import com.academic.adviser.model.BigFiveQuestion;
 import com.academic.adviser.repository.BigFiveQuestionsRepository;
@@ -17,7 +18,7 @@ public class BigFiveServiceImpl implements BigFiveService {
     private BigFiveQuestionsRepository bigFiveQuestionsRepository;
 
     @Override
-    public List<BigFiveQuestionDTO> getBigFiveQuestions() {
+    public BigFiveSurveyDTO getBigFiveQuestions() {
         List<BigFiveQuestion> questions = bigFiveQuestionsRepository.findAll();
         ArrayList<BigFiveQuestionDTO> questionDTOS = new ArrayList<>();
 
@@ -26,6 +27,6 @@ public class BigFiveServiceImpl implements BigFiveService {
             questionDTOS.add(mapper.getDTO());
         }
 
-        return questionDTOS;
+        return new BigFiveSurveyDTO(questionDTOS);
     }
 }
