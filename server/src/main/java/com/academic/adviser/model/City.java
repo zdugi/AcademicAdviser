@@ -6,11 +6,16 @@ import javax.persistence.*;
 public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private Double lifeCost;
+
+    @Column(nullable = false)
+    private Double rent;
 
     //TODO: Add list or attributes that describe life cost
 }
