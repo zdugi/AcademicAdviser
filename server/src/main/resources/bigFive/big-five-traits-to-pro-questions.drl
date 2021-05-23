@@ -1,76 +1,93 @@
 package bigFive;
 import com.academic.adviser.model.BigFiveResults;
 import com.academic.adviser.constants.BigFiveTraitLevel;
-import com.academic.adviser.drools.model.Trait;
+import com.academic.adviser.drools.model.Traits;
+
+rule "Initialize"
+salience 1000
+when
+then
+    insert(new Traits());
+end
 
 rule "High Extroversion"
 when
     $r: BigFiveResults(extroversion > 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.HIGH_EXTROVERSION));
+    modify($t) { addTrait(BigFiveTraitLevel.HIGH_EXTROVERSION); }
 end
 
 rule "Low Extroversion"
 when
     $r: BigFiveResults(extroversion <= 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.LOW_EXTROVERSION));
+    modify($t) { addTrait(BigFiveTraitLevel.LOW_EXTROVERSION); }
 end
 
 rule "High Conscientiousness"
 when
     $r: BigFiveResults(conscientiousness > 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.HIGH_CONSCIENTIOUSNESS));
+    modify($t) { addTrait(BigFiveTraitLevel.HIGH_CONSCIENTIOUSNESS); }
 end
 
 rule "Low Conscientiousness"
 when
     $r: BigFiveResults(conscientiousness <= 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.LOW_CONSCIENTIOUSNESS));
+    modify($t) { addTrait(BigFiveTraitLevel.LOW_CONSCIENTIOUSNESS); }
 end
 
 rule "High Neuroticism"
 when
     $r: BigFiveResults(neuroticism > 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.HIGH_NEUROTICISM));
+    modify($t) { addTrait(BigFiveTraitLevel.HIGH_NEUROTICISM); }
 end
 
 rule "Low Neuroticism"
 when
     $r: BigFiveResults(neuroticism <= 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.LOW_NEUROTICISM));
+    modify($t) { addTrait(BigFiveTraitLevel.LOW_NEUROTICISM); }
 end
 
 rule "High Openness"
 when
     $r: BigFiveResults(openness > 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.HIGH_OPENNESS));
+    modify($t) { addTrait(BigFiveTraitLevel.HIGH_OPENNESS); }
 end
 
 rule "Low Openness"
 when
     $r: BigFiveResults(openness <= 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.LOW_OPENNESS));
+    modify($t) { addTrait(BigFiveTraitLevel.LOW_OPENNESS); }
 end
 
 rule "High Agreeableness"
 when
     $r: BigFiveResults(agreeableness > 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.HIGH_AGREEABLENESS));
+    modify($t) { addTrait(BigFiveTraitLevel.HIGH_AGREEABLENESS); }
 end
 
 rule "Low Agreeableness"
 when
     $r: BigFiveResults(agreeableness <= 20)
+    $t: UserTraits()
 then
-    insert(new Trait(BigFiveTraitLevel.LOW_AGREEABLENESS));
+    modify($t) { addTrait(BigFiveTraitLevel.LOW_AGREEABLENESS); }
 end
 
 rule "ALERT"
@@ -79,4 +96,19 @@ when
     $r: Trait()
 then
     System.out.println("YOLO (^^)");
+end
+
+rule "Career Area Selection"
+    salience $rang
+    lock-on-active true
+when
+    $t: Traits($userTraits: traits)
+    $c: CareerAreas(filled == false)
+    $a: CareerArea($name: name, $traits: traits, $rang: rang)
+    Number($value: intValue >= 2) from accumulate(
+        BigFiveTraitLevel($tm: this, this memberOf $userTraits) from $traits,
+        count($tm)
+    )
+then
+    modify($c) { addCareerArea($a) }
 end
