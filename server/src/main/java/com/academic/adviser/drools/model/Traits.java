@@ -2,10 +2,15 @@ package com.academic.adviser.drools.model;
 
 import com.academic.adviser.constants.BigFiveTraitLevel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Traits {
     private List<BigFiveTraitLevel> traits;
+
+    public Traits() {
+        traits = new ArrayList<>();
+    }
 
     public Traits(List<BigFiveTraitLevel> traits) {
         this.traits = traits;

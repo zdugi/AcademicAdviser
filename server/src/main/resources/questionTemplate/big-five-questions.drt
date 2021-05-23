@@ -8,9 +8,10 @@ package bigFive;
 import com.academic.adviser.dto.BigFiveAnswerDTO;
 import com.academic.adviser.model.BigFiveResults;
 
-template "classification-rules"
+template "big-five-questions"
 
 rule "BigFive Question_@{id}"
+agenda-group "big-five-questions"
 lock-on-active true
 when
     $p: BigFiveAnswerDTO(id == @{id})

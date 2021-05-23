@@ -107,8 +107,8 @@ then
 end
 
 rule "Career Area Selection"
-    salience $rang
-    lock-on-active true
+salience $rang
+lock-on-active true
 when
     $t: Traits($userTraits: traits)
     $c: CareerAreas(filled == false)

@@ -1,7 +1,10 @@
 package com.academic.adviser.service.impl;
 
 import com.academic.adviser.RunTemplateEngine;
+import com.academic.adviser.constants.BigFiveTraitLevel;
+import com.academic.adviser.drools.model.CareerAreas;
 import com.academic.adviser.drools.model.CareerTest;
+import com.academic.adviser.drools.model.Traits;
 import com.academic.adviser.dto.BigFiveAnswerDTO;
 import com.academic.adviser.dto.BigFiveQuestionDTO;
 import com.academic.adviser.dto.BigFiveSurveyAnswersDTO;
@@ -68,80 +71,74 @@ public class BigFiveServiceImpl implements BigFiveService {
     }
 
     @Override
-    public void submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) throws IOException {
+    public void submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) {
         BigFiveResults bigFiveResults = new BigFiveResults();
-        //InputStream template = RunTemplateEngine.class.getResourceAsStream("/bigFive/pro-questions.drl");
-        //KieSession session = createKieSessionFromDRL(new String(template.readAllBytes(), StandardCharsets.UTF_8));
         KieSession session = kContainer.newKieSession("ksession-bigfive-rules");
 
-        CareerArea areaA = careerAreaRepository.findAll().get(0);
-        CareerArea areaB = careerAreaRepository.findAll().get(1);
-        CareerTest test = new CareerTest();
-
-        session.insert(test);
-
-        session.insert(areaA);
-        session.insert(areaB);
-
-        session.fireAllRules();
-
-        //System.out.println("Added: " + test.getQuestionPairs().size());
-        //System.out.println("Done. " + areaA.getId() + " " + areaB.getId());
-        for (Integer pairId : test.getQuestionPairs()) {
-            Optional<QuestionPair> pair = questionPairRepository.findById(pairId);
-
-            System.out.println(pair.get().getQuestionA().getText());
-            System.out.println(pair.get().getQuestionB().getText());
-            System.out.println();
-        }
-
-        System.out.println("Total pairs: " + test.getQuestionPairs().size());
-
-
-        /*session.insert(bigFiveResults);
+        session.insert(bigFiveResults);
         for(BigFiveAnswerDTO answerDTO : answers.getAnswers()) {
             session.insert(answerDTO);
         }
+        //session.getAgenda().getAgendaGroup("big-five-questions").setFocus();
+        //session.fireAllRules();
 
-        session.fireAllRules();
+        CareerAreas careerAreas = new CareerAreas();
+        Traits traits = new Traits();
+        session.insert(traits);
+        session.insert(careerAreas);
+        for(CareerArea careerArea : careerAreaRepository.findAll()) {
+            session.insert(careerArea);
+        }
+        //session.getAgenda().getAgendaGroup("detect-personality").setFocus();
+
+        session.getAgenda().getAgendaGroup("big-five-questions").setFocus();
+
+        int firedRules = session.fireAllRules();
+
+        System.out.println(firedRules);
+
+        session.getAgenda().getAgendaGroup("detect-personality").setFocus();
+
+        firedRules = session.fireAllRules();
+
+        System.out.println(firedRules);
+
+        firedRules = session.fireAllRules();
+
+        System.out.println(firedRules);
 
         System.out.println(bigFiveResults.getAgreeableness());
         System.out.println(bigFiveResults.getConscientiousness());
         System.out.println(bigFiveResults.getExtroversion());
         System.out.println(bigFiveResults.getNeuroticism());
-        System.out.println();*/
+        System.out.println(bigFiveResults.getOpenness());
 
-
-
-        //System.out.println("pass bigFive");
-
-        // Group 1
-        //InputStream template_group2 =
-        //        RunTemplateEngine.class.getResourceAsStream("/bigFive/big-five-traits-to-pro-questions.drl");
-        //try {
-        //    KieSession session = createKieSessionFromDRL(new String(template_group2.readAllBytes(), StandardCharsets.UTF_8));
-         //   session.insert(bigFiveResults);
-        //    session.fireAllRules();
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
-    }
-
-    private KieSession createKieSessionFromDRL(String drl){
-        KieHelper kieHelper = new KieHelper();
-        kieHelper.addContent(drl, ResourceType.DRL);
-
-        Results results = kieHelper.verify();
-
-        if (results.hasMessages(Message.Level.WARNING, Message.Level.ERROR)){
-            List<Message> messages = results.getMessages(Message.Level.WARNING, Message.Level.ERROR);
-            for (Message message : messages) {
-                System.out.println("Error: "+message.getText());
-            }
-
-            throw new IllegalStateException("Compilation errors were found. Check the logs.");
+        for(BigFiveTraitLevel level : traits.getTraits()) {
+            System.out.println(level);
+        }
+        for(CareerArea careerArea : careerAreas.getCareerAreas()) {
+            System.out.println(careerArea.getName());
         }
 
-        return kieHelper.build().newKieSession();
+        CareerTest test = new CareerTest();
+
+        session.insert(test);
+
+        session.getAgenda().getAgendaGroup("career-questions").setFocus();
+        firedRules = session.fireAllRules();
+
+        System.out.println(firedRules);
+
+        //System.out.println("Added: " + test.getQuestionPairs().size());
+        //System.out.println("Done. " + areaA.getId() + " " + areaB.getId());
+//        for (Integer pairId : test.getQuestionPairs()) {
+//            Optional<QuestionPair> pair = questionPairRepository.findById(pairId);
+//
+//            System.out.println(pair.get().getQuestionA().getText());
+//            System.out.println(pair.get().getQuestionB().getText());
+//            System.out.println();
+//        }
+
+        System.out.println("Total pairs: " + test.getQuestionPairs().size());
     }
 }
