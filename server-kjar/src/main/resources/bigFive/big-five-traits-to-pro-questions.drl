@@ -1,0 +1,82 @@
+package bigFive;
+import com.academic.adviser.model.BigFiveResults;
+import com.academic.adviser.constants.BigFiveTraitLevel;
+import com.academic.adviser.drools.model.Trait;
+
+rule "High Extroversion"
+when
+    $r: BigFiveResults(extroversion > 20)
+then
+    insert(new Trait(BigFiveTraitLevel.HIGH_EXTROVERSION));
+end
+
+rule "Low Extroversion"
+when
+    $r: BigFiveResults(extroversion <= 20)
+then
+    insert(new Trait(BigFiveTraitLevel.LOW_EXTROVERSION));
+end
+
+rule "High Conscientiousness"
+when
+    $r: BigFiveResults(conscientiousness > 20)
+then
+    insert(new Trait(BigFiveTraitLevel.HIGH_CONSCIENTIOUSNESS));
+end
+
+rule "Low Conscientiousness"
+when
+    $r: BigFiveResults(conscientiousness <= 20)
+then
+    insert(new Trait(BigFiveTraitLevel.LOW_CONSCIENTIOUSNESS));
+end
+
+rule "High Neuroticism"
+when
+    $r: BigFiveResults(neuroticism > 20)
+then
+    insert(new Trait(BigFiveTraitLevel.HIGH_NEUROTICISM));
+end
+
+rule "Low Neuroticism"
+when
+    $r: BigFiveResults(neuroticism <= 20)
+then
+    insert(new Trait(BigFiveTraitLevel.LOW_NEUROTICISM));
+end
+
+rule "High Openness"
+when
+    $r: BigFiveResults(openness > 20)
+then
+    insert(new Trait(BigFiveTraitLevel.HIGH_OPENNESS));
+end
+
+rule "Low Openness"
+when
+    $r: BigFiveResults(openness <= 20)
+then
+    insert(new Trait(BigFiveTraitLevel.LOW_OPENNESS));
+end
+
+rule "High Agreeableness"
+when
+    $r: BigFiveResults(agreeableness > 20)
+then
+    insert(new Trait(BigFiveTraitLevel.HIGH_AGREEABLENESS));
+end
+
+rule "Low Agreeableness"
+when
+    $r: BigFiveResults(agreeableness <= 20)
+then
+    insert(new Trait(BigFiveTraitLevel.LOW_AGREEABLENESS));
+end
+
+rule "ALERT"
+salience -1
+when
+    $r: Trait()
+then
+    System.out.println("YOLO (^^)");
+end

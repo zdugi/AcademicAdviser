@@ -1,0 +1,455 @@
+package bigFive;
+import com.academic.adviser.dto.BigFiveAnswerDTO;
+import com.academic.adviser.model.BigFiveResults;
+
+rule "BigFive Question_50"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 50)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_49"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 49)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_48"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 48)
+    $r: BigFiveResults()
+then
+    modify ($r) { addConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_47"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 47)
+    $r: BigFiveResults()
+then
+    modify ($r) { addAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_46"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 46)
+    $r: BigFiveResults()
+then
+    modify ($r) { subExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_45"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 45)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_44"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 44)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_43"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 43)
+    $r: BigFiveResults()
+then
+    modify ($r) { addConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_42"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 42)
+    $r: BigFiveResults()
+then
+    modify ($r) { addAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_41"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 41)
+    $r: BigFiveResults()
+then
+    modify ($r) { addExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_40"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 40)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_39"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 39)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_38"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 38)
+    $r: BigFiveResults()
+then
+    modify ($r) { subConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_37"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 37)
+    $r: BigFiveResults()
+then
+    modify ($r) { addAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_36"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 36)
+    $r: BigFiveResults()
+then
+    modify ($r) { subExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_35"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 35)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_34"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 34)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_33"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 33)
+    $r: BigFiveResults()
+then
+    modify ($r) { addConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_32"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 32)
+    $r: BigFiveResults()
+then
+    modify ($r) { subAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_31"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 31)
+    $r: BigFiveResults()
+then
+    modify ($r) { addExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_30"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 30)
+    $r: BigFiveResults()
+then
+    modify ($r) { subOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_29"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 29)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_28"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 28)
+    $r: BigFiveResults()
+then
+    modify ($r) { subConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_27"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 27)
+    $r: BigFiveResults()
+then
+    modify ($r) { addAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_26"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 26)
+    $r: BigFiveResults()
+then
+    modify ($r) { subExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_25"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 25)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_24"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 24)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_23"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 23)
+    $r: BigFiveResults()
+then
+    modify ($r) { addConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_22"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 22)
+    $r: BigFiveResults()
+then
+    modify ($r) { subAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_21"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 21)
+    $r: BigFiveResults()
+then
+    modify ($r) { addExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_20"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 20)
+    $r: BigFiveResults()
+then
+    modify ($r) { subOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_19"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 19)
+    $r: BigFiveResults()
+then
+    modify ($r) { addNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_18"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 18)
+    $r: BigFiveResults()
+then
+    modify ($r) { subConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_17"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 17)
+    $r: BigFiveResults()
+then
+    modify ($r) { addAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_16"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 16)
+    $r: BigFiveResults()
+then
+    modify ($r) { subExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_15"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 15)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_14"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 14)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_13"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 13)
+    $r: BigFiveResults()
+then
+    modify ($r) { addConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_12"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 12)
+    $r: BigFiveResults()
+then
+    modify ($r) { subAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_11"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 11)
+    $r: BigFiveResults()
+then
+    modify ($r) { addExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_10"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 10)
+    $r: BigFiveResults()
+then
+    modify ($r) { subOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_9"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 9)
+    $r: BigFiveResults()
+then
+    modify ($r) { addNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_8"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 8)
+    $r: BigFiveResults()
+then
+    modify ($r) { subConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_7"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 7)
+    $r: BigFiveResults()
+then
+    modify ($r) { addAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_6"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 6)
+    $r: BigFiveResults()
+then
+    modify ($r) { subExtroversion($p.getScore()) };
+end
+
+rule "BigFive Question_5"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 5)
+    $r: BigFiveResults()
+then
+    modify ($r) { addOpenness($p.getScore()) };
+end
+
+rule "BigFive Question_4"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 4)
+    $r: BigFiveResults()
+then
+    modify ($r) { subNeuroticism($p.getScore()) };
+end
+
+rule "BigFive Question_3"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 3)
+    $r: BigFiveResults()
+then
+    modify ($r) { addConscientiousness($p.getScore()) };
+end
+
+rule "BigFive Question_2"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 2)
+    $r: BigFiveResults()
+then
+    modify ($r) { subAgreeableness($p.getScore()) };
+end
+
+rule "BigFive Question_1"
+lock-on-active true
+when
+    $p: BigFiveAnswerDTO(id == 1)
+    $r: BigFiveResults()
+then
+    modify ($r) { addExtroversion($p.getScore()) };
+end
+
+

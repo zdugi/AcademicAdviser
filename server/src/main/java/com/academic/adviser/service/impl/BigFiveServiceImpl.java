@@ -10,9 +10,12 @@ import com.academic.adviser.model.BigFiveQuestion;
 import com.academic.adviser.model.BigFiveResults;
 import com.academic.adviser.repository.BigFiveQuestionsRepository;
 import com.academic.adviser.service.BigFiveService;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.Message;
 import org.kie.api.builder.Results;
 import org.kie.api.io.ResourceType;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.utils.KieHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,16 @@ import java.util.List;
 public class BigFiveServiceImpl implements BigFiveService {
     @Autowired
     private BigFiveQuestionsRepository bigFiveQuestionsRepository;
+
+    private KieContainer kContainer;
+    public BigFiveServiceImpl() {
+        KieServices ks = KieServices.Factory.get();
+        kContainer = ks
+                .newKieContainer(ks.newReleaseId(
+                        "org.adviserkjar", "server-kjar", "1.0-SNAPSHOT"));
+        KieScanner kScanner = ks.newKieScanner(kContainer);
+        kScanner.start(10_000);
+    }
 
     @Override
     public BigFiveSurveyDTO getBigFiveQuestions() {
@@ -46,39 +59,35 @@ public class BigFiveServiceImpl implements BigFiveService {
     public void submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) {
         BigFiveResults bigFiveResults = new BigFiveResults();
         InputStream template = RunTemplateEngine.class.getResourceAsStream("/bigFive/big-five-questions.drl");
-        try {
-            KieSession session = createKieSessionFromDRL(new String(template.readAllBytes(), StandardCharsets.UTF_8));
+        //KieSession session = createKieSessionFromDRL(new String(template.readAllBytes(), StandardCharsets.UTF_8));
+        KieSession session = kContainer.newKieSession("ksession-bigfive-rules");
 
-            session.insert(bigFiveResults);
-            for(BigFiveAnswerDTO answerDTO : answers.getAnswers()) {
-                session.insert(answerDTO);
-            }
-
-            session.fireAllRules();
-
-            System.out.println(bigFiveResults.getAgreeableness());
-            System.out.println(bigFiveResults.getConscientiousness());
-            System.out.println(bigFiveResults.getExtroversion());
-            System.out.println(bigFiveResults.getNeuroticism());
-            System.out.println();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        session.insert(bigFiveResults);
+        for(BigFiveAnswerDTO answerDTO : answers.getAnswers()) {
+            session.insert(answerDTO);
         }
 
-        System.out.println("pass bigFive");
+        session.fireAllRules();
+
+        System.out.println(bigFiveResults.getAgreeableness());
+        System.out.println(bigFiveResults.getConscientiousness());
+        System.out.println(bigFiveResults.getExtroversion());
+        System.out.println(bigFiveResults.getNeuroticism());
+        System.out.println();
+
+
+        //System.out.println("pass bigFive");
 
         // Group 1
-        InputStream template_group2 =
-                RunTemplateEngine.class.getResourceAsStream("/bigFive/big-five-traits-to-pro-questions.drl");
-        try {
-            KieSession session = createKieSessionFromDRL(new String(template_group2.readAllBytes(), StandardCharsets.UTF_8));
-            session.insert(bigFiveResults);
-            session.fireAllRules();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //InputStream template_group2 =
+        //        RunTemplateEngine.class.getResourceAsStream("/bigFive/big-five-traits-to-pro-questions.drl");
+        //try {
+        //    KieSession session = createKieSessionFromDRL(new String(template_group2.readAllBytes(), StandardCharsets.UTF_8));
+         //   session.insert(bigFiveResults);
+        //    session.fireAllRules();
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
     }
 
     private KieSession createKieSessionFromDRL(String drl){
