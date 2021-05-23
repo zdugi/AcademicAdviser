@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -23,7 +25,7 @@ public class BigFiveController {
     }
 
     @PostMapping("/survey")
-    public ResponseEntity<Void> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO) {
+    public ResponseEntity<Void> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO) throws IOException {
         // TODO
         bigFiveService.submitBigFiveSurvey(surveyDTO);
         return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
