@@ -59,11 +59,11 @@ export default {
               })
           }
 
-          axios.post('http://localhost:8080/api/big-five/survey', payload).then(
-              () => {
-                  alert('Submited :)')
-              }
-          )
+          this.$store.dispatch('submitBigFiveSurvey', payload).then(() => {
+              // redirect
+              console.log(this.$store.state.careerQuestions.questions[0].questionA)
+              this.$router.push({'path': 'career-test'})
+          })
       }
   },
   mounted() {
@@ -73,7 +73,7 @@ export default {
                 this.survey.push({
                     id: question.id,
                     text: question.text,
-                    picked: Math.floor(Math.random() * 4 + 1)
+                    picked: Math.floor(Math.random() * 2 + 3)
                 })
               }
           }

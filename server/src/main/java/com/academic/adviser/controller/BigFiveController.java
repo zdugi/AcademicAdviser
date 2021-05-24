@@ -25,9 +25,7 @@ public class BigFiveController {
     }
 
     @PostMapping("/survey")
-    public ResponseEntity<Void> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO) throws IOException {
-        // TODO
-        bigFiveService.submitBigFiveSurvey(surveyDTO);
-        return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+    public ResponseEntity<?> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO) throws IOException {
+        return new ResponseEntity<>(bigFiveService.submitBigFiveSurvey(surveyDTO), HttpStatus.OK);
     }
 }

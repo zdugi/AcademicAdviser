@@ -5,11 +5,9 @@ import com.academic.adviser.constants.BigFiveTraitLevel;
 import com.academic.adviser.drools.model.CareerAreas;
 import com.academic.adviser.drools.model.CareerTest;
 import com.academic.adviser.drools.model.Traits;
-import com.academic.adviser.dto.BigFiveAnswerDTO;
-import com.academic.adviser.dto.BigFiveQuestionDTO;
-import com.academic.adviser.dto.BigFiveSurveyAnswersDTO;
-import com.academic.adviser.dto.BigFiveSurveyDTO;
+import com.academic.adviser.dto.*;
 import com.academic.adviser.mapper.BigFiveQuestionMapper;
+import com.academic.adviser.mapper.QuestionPairMapper;
 import com.academic.adviser.model.BigFiveQuestion;
 import com.academic.adviser.model.BigFiveResults;
 import com.academic.adviser.model.CareerArea;
@@ -47,14 +45,16 @@ public class BigFiveServiceImpl implements BigFiveService {
     @Autowired
     private QuestionPairRepository questionPairRepository;
 
+    @Autowired
     private KieContainer kContainer;
+
     public BigFiveServiceImpl() {
-        KieServices ks = KieServices.Factory.get();
+        /*KieServices ks = KieServices.Factory.get();
         kContainer = ks
                 .newKieContainer(ks.newReleaseId(
                         "org.adviserkjar", "server-kjar", "1.0-SNAPSHOT"));
         KieScanner kScanner = ks.newKieScanner(kContainer);
-        kScanner.start(10_000);
+        kScanner.start(10_000);*/
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BigFiveServiceImpl implements BigFiveService {
     }
 
     @Override
-    public void submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) {
+    public CareerTestDTO submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) {
         BigFiveResults bigFiveResults = new BigFiveResults();
         KieSession session = kContainer.newKieSession("ksession-bigfive-rules");
 
@@ -140,5 +140,14 @@ public class BigFiveServiceImpl implements BigFiveService {
 //        }
 
         System.out.println("Total pairs: " + test.getQuestionPairs().size());
+
+        // mapping
+        QuestionPairMapper questionPairMapper = new QuestionPairMapper();
+        List<QuestionPairDTO> questions = new ArrayList<>();
+        for (Integer id : test.getQuestionPairs())
+            questions.add(
+                    questionPairMapper.getDTO(questionPairRepository.getOne(id)));
+
+        return new CareerTestDTO(questions);
     }
 }

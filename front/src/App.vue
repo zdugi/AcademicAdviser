@@ -1,14 +1,12 @@
 <template>
-  <BigFiveSurvey/>
+  <router-view />
 </template>
 
 <script>
-import BigFiveSurvey from './components/BigFiveSurvey.vue'
 
 export default {
   name: 'App',
   components: {
-    BigFiveSurvey
   }
 }
 </script>
