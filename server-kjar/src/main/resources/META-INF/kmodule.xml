@@ -4,7 +4,7 @@
         <ksession name="ksession-bigfive-rules"/>
     </kbase>
 
-    <kbase name="careerTest" packages="careerTest">
-        <ksession name="ksession-careerTest-rules"/>
+    <kbase name="recommendationRule" packages="recommendation">
+        <ksession name="ksession-recommendation-rules"/>
     </kbase>
 </kmodule>

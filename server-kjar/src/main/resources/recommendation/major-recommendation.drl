@@ -1,0 +1,20 @@
+package recommendation;
+import com.academic.adviser.model.Major;
+import com.academic.adviser.model.Candidate;
+import com.academic.adviser.model.City;
+import com.academic.adviser.model.CareerArea;
+import com.academic.adviser.drools.model.RecommendedMajors;
+
+rule "Recommend major"
+when
+    $c: Candidate($grade: grade)
+    $ci: City()
+    $area: CareerArea()
+    $recommendation: RecommendedMajors()
+    $m: Major(
+        minScore <= $grade * 8 + 50,
+        city.getId() == $ci.getId(),
+        careerArea contains $area)
+then
+    $recommendation.add($m);
+end

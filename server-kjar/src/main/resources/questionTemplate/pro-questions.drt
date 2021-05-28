@@ -1,0 +1,30 @@
+template header
+    id
+    questionAreaA
+    questionAreaB
+
+
+package bigFive;
+
+import com.academic.adviser.drools.model.QuestionPair;
+import com.academic.adviser.drools.model.CareerTest;
+import com.academic.adviser.drools.model.CareerAreas;
+import com.academic.adviser.model.CareerArea;
+
+template "career-questions"
+
+rule "Career QuestionPair_@{id}"
+lock-on-active true
+agenda-group "career-questions"
+when
+    $areas: CareerAreas($careerAreas: careerAreas)
+    $test: CareerTest()
+    Number($value: intValue > 0) from accumulate(
+            CareerArea($area: this, id == @{questionAreaA} || id == @{questionAreaB}) from $careerAreas,
+            count($area)
+        )
+then
+    modify ($test) { addPair(@{id}) };
+end
+
+end template

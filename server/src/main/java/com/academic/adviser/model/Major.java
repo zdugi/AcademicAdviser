@@ -1,5 +1,7 @@
 package com.academic.adviser.model;
 
+import org.kie.api.definition.type.Position;
+
 import javax.persistence.*;
 import java.util.Set;
 
