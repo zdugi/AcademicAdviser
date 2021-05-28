@@ -68,7 +68,7 @@ INSERT INTO TRAITS(career_area_id, traits) VALUES ('2', '3');
 INSERT INTO TRAITS(career_area_id, traits) VALUES ('2', '4');
 INSERT INTO TRAITS(career_area_id, traits) VALUES ('2', '8');
 INSERT INTO TRAITS(career_area_id, traits) VALUES ('3', '7');
-INSERT INTO TRAITS(career_area_id, traits) VALUES ('3', '5');
+INSERT INTO TRAITS(career_area_id, traits) VALUES ('3', '3');
 INSERT INTO TRAITS(career_area_id, traits) VALUES ('4', '7');
 INSERT INTO TRAITS(career_area_id, traits) VALUES ('4', '9');
 INSERT INTO TRAITS(career_area_id, traits) VALUES ('4', '1');
