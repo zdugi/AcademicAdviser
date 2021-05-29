@@ -3,9 +3,16 @@ package careerTest;
 import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.model.QuestionPair;
 import com.academic.adviser.drools.model.QuestionPairAnswer;
-import com.academic.adviser.drools.model.CareerTestNorm;
+import com.academic.adviser.constants.Gender;
+
+declare AreaScore
+   score : int
+   area : String
+   gender: Gender
+end
 
 rule "Summarize career test"
+salience 3
 when
     $area: CareerArea($areaId: id, $name: name)
     accumulate (
@@ -21,10 +28,15 @@ when
         sum($score)
     )
     Number($totalB: intValue) from accumulate (
-        QuestionPairAnswer($score: questionBScore, id memberOf $pairA),
+        QuestionPairAnswer($score: questionBScore, id memberOf $pairB),
         sum($score)
     )
     eval($totalA + $totalB > 0)
 then
+    AreaScore areaScore = new AreaScore();
+    areaScore.setArea($name);
+    areaScore.setScore($totalA + $totalB);
+    areaScore.setGender(Gender.MALE);
+    insert(areaScore);
     System.out.println($name + ", " + $areaId + ": " + ($totalA + $totalB));
 end

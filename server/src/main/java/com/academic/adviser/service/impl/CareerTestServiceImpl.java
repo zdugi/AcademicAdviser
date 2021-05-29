@@ -1,5 +1,6 @@
 package com.academic.adviser.service.impl;
 
+import com.academic.adviser.drools.model.CareerTestNorm;
 import com.academic.adviser.dto.CareerTestAnswerDTO;
 import com.academic.adviser.dto.QuestionPairAnswerDTO;
 import com.academic.adviser.mapper.QuestionPairAnswerMapper;
@@ -26,14 +27,11 @@ public class CareerTestServiceImpl implements CareerTestService {
     @Autowired
     private QuestionPairRepository questionPairRepository;
 
+    @Autowired
+    private List<CareerTestNorm> careerTestNormList;
+
     @Override
     public List<CareerArea> submitCareerTest(CareerTestAnswerDTO careerTestAnswerDTO) {
-        for(QuestionPairAnswerDTO answer : careerTestAnswerDTO.getAnswers()) {
-            System.out.println(answer.getId() + ":");
-            System.out.println("\t-A:" + answer.getQuestionAScore());
-            System.out.println("\t-B:" + answer.getQuestionBScore());
-        }
-
         KieSession session = kContainer.newKieSession("ksession-careertest-rules");
 
         for(CareerArea careerArea : careerAreaRepository.findAll()) {
@@ -49,8 +47,12 @@ public class CareerTestServiceImpl implements CareerTestService {
             session.insert(pair);
         }
 
-        int firedRules = session.fireAllRules();
+        for(CareerTestNorm norm : careerTestNormList) {
+            session.insert(norm);
+        }
 
+        int firedRules = session.fireAllRules();
+        System.out.println(firedRules);
         return null;
     }
 }

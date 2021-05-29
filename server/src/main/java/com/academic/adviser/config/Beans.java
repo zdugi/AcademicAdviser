@@ -47,7 +47,7 @@ public class Beans {
                             });
                     for(String key : normMap.keySet()) {
                         careerTestNorms.add(new CareerTestNorm(
-                                Gender.valueOf(element.get("gender").textValue()),
+                                element.get("gender").textValue().equals("M") ? Gender.MALE : Gender.FEMALE,
                                 element.get("careerArea").textValue(),
                                 normMap.get(key),
                                 Integer.parseInt(key)

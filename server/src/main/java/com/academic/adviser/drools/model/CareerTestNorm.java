@@ -1,12 +1,20 @@
 package com.academic.adviser.drools.model;
 
 import com.academic.adviser.constants.Gender;
+import org.kie.api.definition.type.Position;
 
 public class CareerTestNorm {
+
+    @Position(0)
     private Gender gender;
+
+    @Position(1)
     private String careerArea;
-    private Integer norm;
+
+    @Position(2)
     private Integer score;
+
+    private Integer norm;
 
     public CareerTestNorm() {}
 
