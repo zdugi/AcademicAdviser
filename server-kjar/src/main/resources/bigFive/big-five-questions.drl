@@ -1,12 +1,12 @@
 package bigFive;
-import com.academic.adviser.dto.BigFiveAnswerDTO;
+import com.academic.adviser.drools.model.BigFiveAnswer;
 import com.academic.adviser.model.BigFiveResults;
 
 rule "BigFive Question_50"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 50)
+    $p: BigFiveAnswer(id == 50)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -16,7 +16,7 @@ rule "BigFive Question_49"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 49)
+    $p: BigFiveAnswer(id == 49)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -26,7 +26,7 @@ rule "BigFive Question_48"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 48)
+    $p: BigFiveAnswer(id == 48)
     $r: BigFiveResults()
 then
     modify ($r) { addConscientiousness($p.getScore()) };
@@ -36,7 +36,7 @@ rule "BigFive Question_47"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 47)
+    $p: BigFiveAnswer(id == 47)
     $r: BigFiveResults()
 then
     modify ($r) { addAgreeableness($p.getScore()) };
@@ -46,7 +46,7 @@ rule "BigFive Question_46"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 46)
+    $p: BigFiveAnswer(id == 46)
     $r: BigFiveResults()
 then
     modify ($r) { subExtroversion($p.getScore()) };
@@ -56,7 +56,7 @@ rule "BigFive Question_45"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 45)
+    $p: BigFiveAnswer(id == 45)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -66,7 +66,7 @@ rule "BigFive Question_44"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 44)
+    $p: BigFiveAnswer(id == 44)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -76,7 +76,7 @@ rule "BigFive Question_43"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 43)
+    $p: BigFiveAnswer(id == 43)
     $r: BigFiveResults()
 then
     modify ($r) { addConscientiousness($p.getScore()) };
@@ -86,7 +86,7 @@ rule "BigFive Question_42"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 42)
+    $p: BigFiveAnswer(id == 42)
     $r: BigFiveResults()
 then
     modify ($r) { addAgreeableness($p.getScore()) };
@@ -96,7 +96,7 @@ rule "BigFive Question_41"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 41)
+    $p: BigFiveAnswer(id == 41)
     $r: BigFiveResults()
 then
     modify ($r) { addExtroversion($p.getScore()) };
@@ -106,7 +106,7 @@ rule "BigFive Question_40"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 40)
+    $p: BigFiveAnswer(id == 40)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -116,7 +116,7 @@ rule "BigFive Question_39"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 39)
+    $p: BigFiveAnswer(id == 39)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -126,7 +126,7 @@ rule "BigFive Question_38"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 38)
+    $p: BigFiveAnswer(id == 38)
     $r: BigFiveResults()
 then
     modify ($r) { subConscientiousness($p.getScore()) };
@@ -136,7 +136,7 @@ rule "BigFive Question_37"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 37)
+    $p: BigFiveAnswer(id == 37)
     $r: BigFiveResults()
 then
     modify ($r) { addAgreeableness($p.getScore()) };
@@ -146,7 +146,7 @@ rule "BigFive Question_36"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 36)
+    $p: BigFiveAnswer(id == 36)
     $r: BigFiveResults()
 then
     modify ($r) { subExtroversion($p.getScore()) };
@@ -156,7 +156,7 @@ rule "BigFive Question_35"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 35)
+    $p: BigFiveAnswer(id == 35)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -166,7 +166,7 @@ rule "BigFive Question_34"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 34)
+    $p: BigFiveAnswer(id == 34)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -176,7 +176,7 @@ rule "BigFive Question_33"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 33)
+    $p: BigFiveAnswer(id == 33)
     $r: BigFiveResults()
 then
     modify ($r) { addConscientiousness($p.getScore()) };
@@ -186,7 +186,7 @@ rule "BigFive Question_32"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 32)
+    $p: BigFiveAnswer(id == 32)
     $r: BigFiveResults()
 then
     modify ($r) { subAgreeableness($p.getScore()) };
@@ -196,7 +196,7 @@ rule "BigFive Question_31"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 31)
+    $p: BigFiveAnswer(id == 31)
     $r: BigFiveResults()
 then
     modify ($r) { addExtroversion($p.getScore()) };
@@ -206,7 +206,7 @@ rule "BigFive Question_30"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 30)
+    $p: BigFiveAnswer(id == 30)
     $r: BigFiveResults()
 then
     modify ($r) { subOpenness($p.getScore()) };
@@ -216,7 +216,7 @@ rule "BigFive Question_29"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 29)
+    $p: BigFiveAnswer(id == 29)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -226,7 +226,7 @@ rule "BigFive Question_28"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 28)
+    $p: BigFiveAnswer(id == 28)
     $r: BigFiveResults()
 then
     modify ($r) { subConscientiousness($p.getScore()) };
@@ -236,7 +236,7 @@ rule "BigFive Question_27"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 27)
+    $p: BigFiveAnswer(id == 27)
     $r: BigFiveResults()
 then
     modify ($r) { addAgreeableness($p.getScore()) };
@@ -246,7 +246,7 @@ rule "BigFive Question_26"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 26)
+    $p: BigFiveAnswer(id == 26)
     $r: BigFiveResults()
 then
     modify ($r) { subExtroversion($p.getScore()) };
@@ -256,7 +256,7 @@ rule "BigFive Question_25"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 25)
+    $p: BigFiveAnswer(id == 25)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -266,7 +266,7 @@ rule "BigFive Question_24"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 24)
+    $p: BigFiveAnswer(id == 24)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -276,7 +276,7 @@ rule "BigFive Question_23"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 23)
+    $p: BigFiveAnswer(id == 23)
     $r: BigFiveResults()
 then
     modify ($r) { addConscientiousness($p.getScore()) };
@@ -286,7 +286,7 @@ rule "BigFive Question_22"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 22)
+    $p: BigFiveAnswer(id == 22)
     $r: BigFiveResults()
 then
     modify ($r) { subAgreeableness($p.getScore()) };
@@ -296,7 +296,7 @@ rule "BigFive Question_21"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 21)
+    $p: BigFiveAnswer(id == 21)
     $r: BigFiveResults()
 then
     modify ($r) { addExtroversion($p.getScore()) };
@@ -306,7 +306,7 @@ rule "BigFive Question_20"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 20)
+    $p: BigFiveAnswer(id == 20)
     $r: BigFiveResults()
 then
     modify ($r) { subOpenness($p.getScore()) };
@@ -316,7 +316,7 @@ rule "BigFive Question_19"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 19)
+    $p: BigFiveAnswer(id == 19)
     $r: BigFiveResults()
 then
     modify ($r) { addNeuroticism($p.getScore()) };
@@ -326,7 +326,7 @@ rule "BigFive Question_18"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 18)
+    $p: BigFiveAnswer(id == 18)
     $r: BigFiveResults()
 then
     modify ($r) { subConscientiousness($p.getScore()) };
@@ -336,7 +336,7 @@ rule "BigFive Question_17"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 17)
+    $p: BigFiveAnswer(id == 17)
     $r: BigFiveResults()
 then
     modify ($r) { addAgreeableness($p.getScore()) };
@@ -346,7 +346,7 @@ rule "BigFive Question_16"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 16)
+    $p: BigFiveAnswer(id == 16)
     $r: BigFiveResults()
 then
     modify ($r) { subExtroversion($p.getScore()) };
@@ -356,7 +356,7 @@ rule "BigFive Question_15"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 15)
+    $p: BigFiveAnswer(id == 15)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -366,7 +366,7 @@ rule "BigFive Question_14"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 14)
+    $p: BigFiveAnswer(id == 14)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -376,7 +376,7 @@ rule "BigFive Question_13"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 13)
+    $p: BigFiveAnswer(id == 13)
     $r: BigFiveResults()
 then
     modify ($r) { addConscientiousness($p.getScore()) };
@@ -386,7 +386,7 @@ rule "BigFive Question_12"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 12)
+    $p: BigFiveAnswer(id == 12)
     $r: BigFiveResults()
 then
     modify ($r) { subAgreeableness($p.getScore()) };
@@ -396,7 +396,7 @@ rule "BigFive Question_11"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 11)
+    $p: BigFiveAnswer(id == 11)
     $r: BigFiveResults()
 then
     modify ($r) { addExtroversion($p.getScore()) };
@@ -406,7 +406,7 @@ rule "BigFive Question_10"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 10)
+    $p: BigFiveAnswer(id == 10)
     $r: BigFiveResults()
 then
     modify ($r) { subOpenness($p.getScore()) };
@@ -416,7 +416,7 @@ rule "BigFive Question_9"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 9)
+    $p: BigFiveAnswer(id == 9)
     $r: BigFiveResults()
 then
     modify ($r) { addNeuroticism($p.getScore()) };
@@ -426,7 +426,7 @@ rule "BigFive Question_8"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 8)
+    $p: BigFiveAnswer(id == 8)
     $r: BigFiveResults()
 then
     modify ($r) { subConscientiousness($p.getScore()) };
@@ -436,7 +436,7 @@ rule "BigFive Question_7"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 7)
+    $p: BigFiveAnswer(id == 7)
     $r: BigFiveResults()
 then
     modify ($r) { addAgreeableness($p.getScore()) };
@@ -446,7 +446,7 @@ rule "BigFive Question_6"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 6)
+    $p: BigFiveAnswer(id == 6)
     $r: BigFiveResults()
 then
     modify ($r) { subExtroversion($p.getScore()) };
@@ -456,7 +456,7 @@ rule "BigFive Question_5"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 5)
+    $p: BigFiveAnswer(id == 5)
     $r: BigFiveResults()
 then
     modify ($r) { addOpenness($p.getScore()) };
@@ -466,7 +466,7 @@ rule "BigFive Question_4"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 4)
+    $p: BigFiveAnswer(id == 4)
     $r: BigFiveResults()
 then
     modify ($r) { subNeuroticism($p.getScore()) };
@@ -476,7 +476,7 @@ rule "BigFive Question_3"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 3)
+    $p: BigFiveAnswer(id == 3)
     $r: BigFiveResults()
 then
     modify ($r) { addConscientiousness($p.getScore()) };
@@ -486,7 +486,7 @@ rule "BigFive Question_2"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 2)
+    $p: BigFiveAnswer(id == 2)
     $r: BigFiveResults()
 then
     modify ($r) { subAgreeableness($p.getScore()) };
@@ -496,7 +496,7 @@ rule "BigFive Question_1"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == 1)
+    $p: BigFiveAnswer(id == 1)
     $r: BigFiveResults()
 then
     modify ($r) { addExtroversion($p.getScore()) };

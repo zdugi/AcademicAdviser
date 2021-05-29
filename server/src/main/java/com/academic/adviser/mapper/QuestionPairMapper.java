@@ -2,7 +2,6 @@ package com.academic.adviser.mapper;
 
 import com.academic.adviser.dto.QuestionPairDTO;
 import com.academic.adviser.model.QuestionPair;
-import com.academic.adviser.repository.QuestionPairRepository;
 
 public class QuestionPairMapper {
     public QuestionPairDTO getDTO(QuestionPair questionPair) {

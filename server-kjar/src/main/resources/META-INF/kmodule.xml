@@ -7,4 +7,8 @@
     <kbase name="recommendationRule" packages="recommendation">
         <ksession name="ksession-recommendation-rules"/>
     </kbase>
+
+    <kbase name="careerTestRules" packages="careerTest">
+        <ksession name="ksession-careertest-rules"/>
+    </kbase>
 </kmodule>

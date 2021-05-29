@@ -1,14 +1,13 @@
-package com.academic.adviser.dto;
+package com.academic.adviser.drools.model;
 
-public class BigFiveTemplateDTO {
-
+public class BigFiveTemplate {
     private Integer id;
     private String trait;
     private String operation;
 
-    public BigFiveTemplateDTO() {}
+    public BigFiveTemplate() {}
 
-    public BigFiveTemplateDTO(Integer id, String trait, String operation) {
+    public BigFiveTemplate(Integer id, String trait, String operation) {
         this.id = id;
         this.trait = trait;
         this.operation = operation;

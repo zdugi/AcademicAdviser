@@ -5,7 +5,7 @@ operation
 
 package bigFive;
 
-import com.academic.adviser.dto.BigFiveAnswerDTO;
+import com.academic.adviser.drools.model.BigFiveAnswer;
 import com.academic.adviser.model.BigFiveResults;
 
 template "big-five-questions"
@@ -14,7 +14,7 @@ rule "BigFive Question_@{id}"
 agenda-group "big-five-questions"
 lock-on-active true
 when
-    $p: BigFiveAnswerDTO(id == @{id})
+    $p: BigFiveAnswer(id == @{id})
     $r: BigFiveResults()
 then
     modify ($r) { @{operation}@{trait}($p.getScore()) };

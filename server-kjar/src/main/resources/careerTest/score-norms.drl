@@ -1,0 +1,30 @@
+package careerTest;
+
+import com.academic.adviser.model.CareerArea;
+import com.academic.adviser.model.QuestionPair;
+import com.academic.adviser.drools.model.QuestionPairAnswer;
+import com.academic.adviser.drools.model.CareerTestNorm;
+
+rule "Summarize career test"
+when
+    $area: CareerArea($areaId: id, $name: name)
+    accumulate (
+        QuestionPair( $pairId: id, questionA.careerArea.id == $areaId);
+        $pairA: collectList( $pairId )
+    )
+    accumulate (
+        QuestionPair( $pairId: id, questionB.careerArea.id == $areaId );
+        $pairB: collectList( $pairId )
+    )
+    Number($totalA: intValue) from accumulate (
+        QuestionPairAnswer($score: questionAScore, id memberOf $pairA),
+        sum($score)
+    )
+    Number($totalB: intValue) from accumulate (
+        QuestionPairAnswer($score: questionBScore, id memberOf $pairA),
+        sum($score)
+    )
+    eval($totalA + $totalB > 0)
+then
+    System.out.println($name + ", " + $areaId + ": " + ($totalA + $totalB));
+end

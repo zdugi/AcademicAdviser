@@ -1,16 +1,15 @@
 package com.academic.adviser.runner;
 
-import com.academic.adviser.RunTemplateEngine;
+import com.academic.adviser.drools.model.BigFiveTemplate;
 import com.academic.adviser.drools.model.QuestionPair;
-import com.academic.adviser.dto.BigFiveTemplateDTO;
 import com.academic.adviser.mapper.BigFiveTemplateMapper;
 import com.academic.adviser.repository.BigFiveQuestionsRepository;
 import com.academic.adviser.repository.QuestionPairRepository;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.drools.template.ObjectDataCompiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;
@@ -27,12 +26,16 @@ public class TemplateGenerator implements ApplicationRunner {
     @Autowired
     private QuestionPairRepository questionPairRepository;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        InputStream template = RunTemplateEngine.class.getResourceAsStream("/questionTemplate/big-five-questions.drt");
+        InputStream template = resourceLoader
+                .getResource("classpath:questionTemplate/big-five-questions.drt").getInputStream();
 
         BigFiveTemplateMapper mapper = new BigFiveTemplateMapper();
-        List<BigFiveTemplateDTO> data = mapper.getDTOs(repository.findAll());
+        List<BigFiveTemplate> data = mapper.toTemplates(repository.findAll());
 
         ObjectDataCompiler converter = new ObjectDataCompiler();
         String drl = converter.compile(data, template);
@@ -42,9 +45,8 @@ public class TemplateGenerator implements ApplicationRunner {
 
         //
 
-        template = RunTemplateEngine.class.getResourceAsStream(
-                "/questionTemplate/pro-questions.drt");
-
+        template = resourceLoader
+                .getResource("classpath:questionTemplate/pro-questions.drt").getInputStream();
 
         List<QuestionPair> pairs = new ArrayList<>();
         for (com.academic.adviser.model.QuestionPair pair : questionPairRepository.findAll())

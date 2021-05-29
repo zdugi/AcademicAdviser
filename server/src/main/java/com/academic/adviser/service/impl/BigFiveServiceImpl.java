@@ -5,6 +5,7 @@ import com.academic.adviser.drools.model.CareerAreas;
 import com.academic.adviser.drools.model.CareerTest;
 import com.academic.adviser.drools.model.Traits;
 import com.academic.adviser.dto.*;
+import com.academic.adviser.mapper.BigFiveAnswerMapper;
 import com.academic.adviser.mapper.BigFiveQuestionMapper;
 import com.academic.adviser.mapper.QuestionPairMapper;
 import com.academic.adviser.model.BigFiveQuestion;
@@ -54,9 +55,11 @@ public class BigFiveServiceImpl implements BigFiveService {
         BigFiveResults bigFiveResults = new BigFiveResults();
         KieSession session = kContainer.newKieSession("ksession-bigfive-rules");
 
+        BigFiveAnswerMapper bigFiveAnswerMapper = new BigFiveAnswerMapper();
+
         session.insert(bigFiveResults);
         for(BigFiveAnswerDTO answerDTO : answers.getAnswers()) {
-            session.insert(answerDTO);
+            session.insert(bigFiveAnswerMapper.toModel(answerDTO));
         }
 
         CareerAreas careerAreas = new CareerAreas();
