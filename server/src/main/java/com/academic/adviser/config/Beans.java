@@ -1,5 +1,6 @@
 package com.academic.adviser.config;
 
+import com.academic.adviser.service.impl.UserDetailsServiceImpl;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.runtime.KieContainer;
@@ -17,5 +18,10 @@ public class Beans {
         KieScanner kScanner = ks.newKieScanner(kContainer);
         // kScanner.start(10_000);
         return kContainer;
+    }
+
+    @Bean
+    public UserDetailsServiceImpl getUserDetailsServiceInstance() {
+        return new UserDetailsServiceImpl();
     }
 }

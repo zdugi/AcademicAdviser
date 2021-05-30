@@ -1,6 +1,7 @@
 package com.academic.adviser.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Dormitory {
@@ -16,5 +17,6 @@ public class Dormitory {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
-    //TODO: Make list of dormitory users that are described with BigFive traits
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Candidate> candidates;
 }
