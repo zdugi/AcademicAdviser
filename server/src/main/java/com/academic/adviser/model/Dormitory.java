@@ -19,4 +19,20 @@ public class Dormitory {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Candidate> candidates;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public List<Candidate> getCandidates() {
+        return candidates;
+    }
 }

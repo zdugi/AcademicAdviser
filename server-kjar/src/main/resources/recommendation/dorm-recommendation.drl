@@ -1,0 +1,51 @@
+package recommendation;
+import com.academic.adviser.model.Major;
+import com.academic.adviser.model.Candidate;
+import com.academic.adviser.model.City;
+import com.academic.adviser.model.BigFiveResults;
+import com.academic.adviser.model.Dormitory;
+
+import java.util.List;
+import function java.lang.Math.abs;
+
+rule "Suggest dormitories to candidate"
+when
+    $c: Candidate($canGrade: grade)
+    $m: Major($city: city)
+    $b: BigFiveResults($e: extroversion, $a: agreeableness, $n: neuroticism)
+    (
+        $dorms: List(size > 0) from collect (
+            Dormitory($d: this, city.getId() == $city.getId())
+        ) and eval($e > 30 && $a > 20 && $n < 10)
+
+    ) or (
+        accumulate(
+            Dormitory($d: this, $candidates: candidates, city.getId() == $city.getId()) and
+            List(size / $candidates.size() > 0.1) from collect(
+                Candidate(
+                    $bf: bigFiveResults,
+                    abs($bf.getExtroversion() - $e) < 10 ||
+                    abs($bf.getAgreeableness() - $a) < 5 ||
+                    abs($bf.getNeuroticism() - $n) < 5
+                ) from $candidates
+            ),
+            $dorms: collectList($d)
+        ) and eval($dorms.size() > 0)
+    )
+then
+    System.out.println($dorms.size());
+end
+
+rule "Inform about life cost"
+when
+    $c: Candidate($canGrade: grade)
+    $m: Major($city: city)
+    List(size == 0) from collect(
+        Dormitory(city.getId() == $city.getId())
+    )
+    not(
+        $b: BigFiveResults(extroversion > 30 && agreeableness > 30)
+    )
+then
+    // TODO: show life cost information
+end

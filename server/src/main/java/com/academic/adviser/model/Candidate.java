@@ -1,5 +1,6 @@
 package com.academic.adviser.model;
 
+import com.academic.adviser.constants.Gender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,6 +25,10 @@ public class Candidate implements UserDetails {
 
     @Column
     private double grade;
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
+    private Gender gender;
 
     @OneToOne(cascade = CascadeType.ALL)
     private BigFiveResults bigFiveResults;
@@ -51,6 +56,14 @@ public class Candidate implements UserDetails {
 
     public void setGrade(double grade) {
         this.grade = grade;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public BigFiveResults getBigFiveResults() {
+        return bigFiveResults;
     }
 
     @Override
