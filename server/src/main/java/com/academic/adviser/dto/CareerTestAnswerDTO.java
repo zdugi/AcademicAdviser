@@ -8,6 +8,13 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 public class CareerTestAnswerDTO {
     private List<QuestionPairAnswerDTO> answers;
 
+
+    public CareerTestAnswerDTO() {}
+
+    public CareerTestAnswerDTO(List<QuestionPairAnswerDTO> answers) {
+        this.answers = answers;
+    }
+
     public List<QuestionPairAnswerDTO> getAnswers() {
         return answers;
     }
