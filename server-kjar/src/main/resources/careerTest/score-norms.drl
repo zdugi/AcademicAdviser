@@ -1,0 +1,42 @@
+package careerTest;
+
+import com.academic.adviser.model.CareerArea;
+import com.academic.adviser.model.QuestionPair;
+import com.academic.adviser.drools.model.QuestionPairAnswer;
+import com.academic.adviser.constants.Gender;
+
+declare AreaScore
+   score : int
+   area : String
+   gender: Gender
+end
+
+rule "Summarize career test"
+salience 3
+when
+    $area: CareerArea($areaId: id, $name: name)
+    accumulate (
+        QuestionPair( $pairId: id, questionA.careerArea.id == $areaId);
+        $pairA: collectList( $pairId )
+    )
+    accumulate (
+        QuestionPair( $pairId: id, questionB.careerArea.id == $areaId );
+        $pairB: collectList( $pairId )
+    )
+    Number($totalA: intValue) from accumulate (
+        QuestionPairAnswer($score: questionAScore, id memberOf $pairA),
+        sum($score)
+    )
+    Number($totalB: intValue) from accumulate (
+        QuestionPairAnswer($score: questionBScore, id memberOf $pairB),
+        sum($score)
+    )
+    eval($totalA + $totalB > 0)
+then
+    AreaScore areaScore = new AreaScore();
+    areaScore.setArea($name);
+    areaScore.setScore($totalA + $totalB);
+    areaScore.setGender(Gender.MALE);
+    insert(areaScore);
+    System.out.println($name + ", " + $areaId + ": " + ($totalA + $totalB));
+end

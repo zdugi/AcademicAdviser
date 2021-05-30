@@ -1,0 +1,17 @@
+package careerTest;
+
+import com.academic.adviser.drools.model.CareerTestNorm;
+import com.academic.adviser.constants.Gender;
+
+rule "Normalize test score"
+salience 2
+when
+    $scoredArea: AreaScore($score: score, $area: area, $gender: gender)
+    checkScore($gender, $area, $score, $norm;)
+then
+    System.out.println($area + " " + $score + " " + $norm);
+end
+
+query checkScore(Gender gender, String careerArea, Integer score, Integer $norm)
+    CareerTestNorm(gender, careerArea, score, $norm := norm;);
+end
