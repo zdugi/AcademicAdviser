@@ -8,6 +8,12 @@ import java.util.List;
 public class BigFiveSurveyAnswersDTO {
     private List<BigFiveAnswerDTO> answers;
 
+    public BigFiveSurveyAnswersDTO() {}
+
+    public BigFiveSurveyAnswersDTO(List<BigFiveAnswerDTO> answers) {
+        this.answers = answers;
+    }
+
     public List<BigFiveAnswerDTO> getAnswers() {
         return answers;
     }
