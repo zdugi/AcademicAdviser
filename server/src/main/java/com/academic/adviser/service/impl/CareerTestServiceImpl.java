@@ -8,6 +8,7 @@ import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.model.QuestionPair;
 import com.academic.adviser.repository.CareerAreaRepository;
 import com.academic.adviser.repository.QuestionPairRepository;
+import com.academic.adviser.rule.impl.CareerTestRule;
 import com.academic.adviser.service.CareerTestService;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -32,31 +33,13 @@ public class CareerTestServiceImpl implements CareerTestService {
 
     @Override
     public CareerArea submitCareerTest(CareerTestAnswerDTO careerTestAnswerDTO) {
-        KieSession session = kContainer.newKieSession("ksession-careertest-rules");
-        CareerArea finalArea = new CareerArea();
+        CareerTestRule careerTestRule = new CareerTestRule(
+                careerTestAnswerDTO,
+                kContainer,
+                questionPairRepository,
+                careerAreaRepository,
+                careerTestNormList);
 
-        for(CareerArea careerArea : careerAreaRepository.findAll()) {
-            session.insert(careerArea);
-        }
-
-        QuestionPairAnswerMapper questionPairAnswerMapper = new QuestionPairAnswerMapper();
-        for(QuestionPairAnswerDTO answer : careerTestAnswerDTO.getAnswers()) {
-            session.insert(questionPairAnswerMapper.toModel(answer));
-        }
-
-        for(QuestionPair pair : questionPairRepository.findAll()) {
-            session.insert(pair);
-        }
-
-        for(CareerTestNorm norm : careerTestNormList) {
-            session.insert(norm);
-        }
-
-        session.insert(finalArea);
-
-        int firedRules = session.fireAllRules();
-        System.out.println(firedRules);
-
-        return finalArea;
+        return (CareerArea) careerTestRule.runRule();
     }
 }

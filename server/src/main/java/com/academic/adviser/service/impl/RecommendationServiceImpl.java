@@ -8,6 +8,7 @@ import com.academic.adviser.model.City;
 import com.academic.adviser.model.Major;
 import com.academic.adviser.repository.CareerAreaRepository;
 import com.academic.adviser.repository.MajorRepository;
+import com.academic.adviser.rule.impl.MajorRecommendationRule;
 import com.academic.adviser.service.RecommendationService;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -30,22 +31,13 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public List<Major> getMajors(CareerArea finalArea, City desiredCity, Candidate candidate) {
-        RecommendedMajors recommendedMajors = new RecommendedMajors();
+        MajorRecommendationRule majorRecommendationRule = new MajorRecommendationRule(
+                kContainer,
+                majorRepository,
+                finalArea,
+                desiredCity,
+                candidate);
 
-        KieSession session = kContainer.newKieSession("ksession-recommendation-rules");
-
-        session.insert(recommendedMajors);
-
-        List<Major> majors = majorRepository.findAll();
-        for (Major major : majors)
-            session.insert(major);
-
-        session.insert(candidate);
-        session.insert(desiredCity);
-        session.insert(finalArea);
-
-        session.fireAllRules();
-
-        return recommendedMajors.getMajors();
+        return (List<Major>) majorRecommendationRule.runRule();
     }
 }

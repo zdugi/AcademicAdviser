@@ -8,6 +8,14 @@ public class QuestionPairAnswerDTO {
     private Integer questionAScore;
     private Integer questionBScore;
 
+    public QuestionPairAnswerDTO() {}
+
+    public QuestionPairAnswerDTO(Integer id, Integer questionAScore, Integer questionBScore) {
+        this.id = id;
+        this.questionAScore = questionAScore;
+        this.questionBScore = questionBScore;
+    }
+
     public Integer getId() {
         return id;
     }
