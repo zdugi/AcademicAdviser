@@ -9,12 +9,13 @@ declare AreaScore
    score : int
    area : String
    gender: Gender
+   norm : int
 end
 
 rule "Summarize career test"
 salience 3
 when
-    $area: CareerArea($areaId: id, $name: name)
+    $area: CareerArea($areaId: id, $name: name, traits != null)
     accumulate (
         QuestionPair( $pairId: id, questionA.careerArea.id == $areaId);
         $pairA: collectList( $pairId )
@@ -24,11 +25,11 @@ when
         $pairB: collectList( $pairId )
     )
     Number($totalA: intValue) from accumulate (
-        QuestionPairAnswer($score: questionAScore, id memberOf $pairA),
+        QuestionPairAnswer($score: questionAScore, id memberOf $pairA);
         sum($score)
     )
     Number($totalB: intValue) from accumulate (
-        QuestionPairAnswer($score: questionBScore, id memberOf $pairB),
+        QuestionPairAnswer($score: questionBScore, id memberOf $pairB);
         sum($score)
     )
     eval($totalA + $totalB > 0)

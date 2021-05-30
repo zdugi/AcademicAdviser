@@ -29,7 +29,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     private CareerAreaRepository careerAreaRepository;
 
     @Override
-    public List<Major> getMajors() {
+    public List<Major> getMajors(CareerArea finalArea, City desiredCity, Candidate candidate) {
         RecommendedMajors recommendedMajors = new RecommendedMajors();
 
         KieSession session = kContainer.newKieSession("ksession-recommendation-rules");
@@ -40,14 +40,9 @@ public class RecommendationServiceImpl implements RecommendationService {
         for (Major major : majors)
             session.insert(major);
 
-        Candidate candidate = new Candidate(4.0);
         session.insert(candidate);
-
-        session.insert(
-                new City(0, "Beograd", 55356.0, 40000.0));
-
-        CareerArea careerArea = careerAreaRepository.getOne(2);
-        session.insert(careerArea);
+        session.insert(desiredCity);
+        session.insert(finalArea);
 
         session.fireAllRules();
 

@@ -1,9 +1,11 @@
 package com.academic.adviser.model;
 
 import com.academic.adviser.constants.BigFiveTraitLevel;
+import org.kie.api.definition.type.Modifies;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class CareerArea {
@@ -29,6 +31,13 @@ public class CareerArea {
         this.name = name;
         this.traits = traits;
         this.rang = rang;
+    }
+
+    @Modifies({"id", "name", "rang"})
+    public void changeProps(CareerArea careerArea) {
+        this.id = careerArea.getId();
+        this.name = careerArea.getName();
+        this.rang = careerArea.getRang();
     }
 
     public Integer getId() {
@@ -57,5 +66,18 @@ public class CareerArea {
 
     public void setRang(Integer rang) {
         this.rang = rang;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CareerArea that = (CareerArea) o;
+        return id.equals(that.id) && name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

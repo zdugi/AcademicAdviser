@@ -18,7 +18,7 @@ public class RecommendationServiceUnitTest {
     @Test
     @Transactional
     public void testGetMajors() {
-        for (Major major : recommendationService.getMajors())
-            System.out.println(major.getName() + "; " + major.getCity().getName());
+        //for (Major major : recommendationService.getMajors())
+        //    System.out.println(major.getName() + "; " + major.getCity().getName());
     }
 }

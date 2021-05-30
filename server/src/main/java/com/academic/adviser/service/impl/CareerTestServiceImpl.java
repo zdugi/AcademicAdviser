@@ -31,8 +31,9 @@ public class CareerTestServiceImpl implements CareerTestService {
     private List<CareerTestNorm> careerTestNormList;
 
     @Override
-    public List<CareerArea> submitCareerTest(CareerTestAnswerDTO careerTestAnswerDTO) {
+    public CareerArea submitCareerTest(CareerTestAnswerDTO careerTestAnswerDTO) {
         KieSession session = kContainer.newKieSession("ksession-careertest-rules");
+        CareerArea finalArea = new CareerArea();
 
         for(CareerArea careerArea : careerAreaRepository.findAll()) {
             session.insert(careerArea);
@@ -51,8 +52,11 @@ public class CareerTestServiceImpl implements CareerTestService {
             session.insert(norm);
         }
 
+        session.insert(finalArea);
+
         int firedRules = session.fireAllRules();
         System.out.println(firedRules);
-        return null;
+
+        return finalArea;
     }
 }

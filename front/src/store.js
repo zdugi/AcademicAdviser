@@ -32,7 +32,7 @@ export const store = createStore({
       return new Promise((resolve, reject) => {
         axios.post('http://localhost:8080/api/career-test', careerTest).then(
           (response) => {
-            console.log('Poslato' + response);
+            console.log(response);
           }
         ).catch(() => {
           reject()

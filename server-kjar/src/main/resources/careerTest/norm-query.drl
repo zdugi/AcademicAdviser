@@ -1,7 +1,9 @@
 package careerTest;
 
 import com.academic.adviser.drools.model.CareerTestNorm;
+import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.constants.Gender;
+
 
 rule "Normalize test score"
 salience 2
@@ -9,9 +11,26 @@ when
     $scoredArea: AreaScore($score: score, $area: area, $gender: gender)
     checkScore($gender, $area, $score, $norm;)
 then
-    System.out.println($area + " " + $score + " " + $norm);
+    $scoredArea.setNorm($norm);
+    System.out.println($area + " " + $score + " " + $scoredArea.getNorm());
 end
 
 query checkScore(Gender gender, String careerArea, Integer score, Integer $norm)
     CareerTestNorm(gender, careerArea, score, $norm := norm;);
+end
+
+rule "Find max career area norm"
+salience 1
+no-loop
+when
+    $finalArea: CareerArea(traits == null)
+    Number($maxScore: intValue) from accumulate(
+        AreaScore($norm: norm);
+        max($norm)
+    )
+    $scoredArea: AreaScore($area: area, norm == $maxScore)
+    $maxArea: CareerArea(name == $area)
+then
+    modify ($finalArea) { changeProps($maxArea) }
+    System.out.println($finalArea.getName());
 end
