@@ -43,13 +43,13 @@ rule "Inform about life cost"
 agenda-group "academic-life"
 when
     $dl: AcademicLife()
-    $c: Candidate($canGrade: grade)
     $m: Major($city: city)
     List(size == 0) from collect(
         Dormitory(city.getId() == $city.getId())
-    )
-    not(
-        $b: BigFiveResults(extroversion > 30 && agreeableness > 30)
+    ) or
+    not Candidate(
+        bigFiveResults.getExtroversion() > 30 &&
+        bigFiveResults.getAgreeableness() > 30
     )
 then
     $dl.addCityLifeCost($city);
