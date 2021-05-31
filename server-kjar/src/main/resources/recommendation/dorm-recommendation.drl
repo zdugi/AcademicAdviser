@@ -4,12 +4,15 @@ import com.academic.adviser.model.Candidate;
 import com.academic.adviser.model.City;
 import com.academic.adviser.model.BigFiveResults;
 import com.academic.adviser.model.Dormitory;
+import com.academic.adviser.drools.model.AcademicLife;
 
 import java.util.List;
 import function java.lang.Math.abs;
 
 rule "Suggest dormitories to candidate"
+agenda-group "academic-life"
 when
+    $dl: AcademicLife()
     $c: Candidate($canGrade: grade)
     $m: Major($city: city)
     $b: BigFiveResults($e: extroversion, $a: agreeableness, $n: neuroticism)
@@ -17,7 +20,6 @@ when
         $dorms: List(size > 0) from collect (
             Dormitory($d: this, city.getId() == $city.getId())
         ) and eval($e > 30 && $a > 20 && $n < 10)
-
     ) or (
         accumulate(
             Dormitory($d: this, $candidates: candidates, city.getId() == $city.getId()) and
@@ -33,11 +35,14 @@ when
         ) and eval($dorms.size() > 0)
     )
 then
+    $dl.extendDorms($dorms);
     System.out.println($dorms.size());
 end
 
 rule "Inform about life cost"
+agenda-group "academic-life"
 when
+    $dl: AcademicLife()
     $c: Candidate($canGrade: grade)
     $m: Major($city: city)
     List(size == 0) from collect(
@@ -47,5 +52,6 @@ when
         $b: BigFiveResults(extroversion > 30 && agreeableness > 30)
     )
 then
-    // TODO: show life cost information
+    $dl.addCityLifeCost($city);
+    System.out.println("Life cost: " + $city.getLifeCost() + "\nRent: " + $city.getRent());
 end

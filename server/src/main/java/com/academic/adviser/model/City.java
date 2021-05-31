@@ -36,4 +36,12 @@ public class City {
     public String getName() {
         return name;
     }
+
+    public Double getLifeCost() {
+        return lifeCost;
+    }
+
+    public Double getRent() {
+        return rent;
+    }
 }
