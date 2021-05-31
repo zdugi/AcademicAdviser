@@ -1,10 +1,7 @@
 package com.academic.adviser.rule;
 
 import com.academic.adviser.constants.BigFiveTraitLevel;
-import com.academic.adviser.model.Candidate;
-import com.academic.adviser.model.CareerArea;
-import com.academic.adviser.model.City;
-import com.academic.adviser.model.Major;
+import com.academic.adviser.model.*;
 import com.academic.adviser.repository.MajorRepository;
 import com.academic.adviser.rule.impl.MajorRecommendationRule;
 import org.junit.Before;
@@ -73,6 +70,7 @@ public class MajorRecommendationRuleUnitTest {
         }}, 90);
         City desiredCity = new City(0, "Beograd", 55356.0, 40000.0);
         Candidate candidate = new Candidate(4.5);
+        candidate.setBigFiveResults(new BigFiveResults());
 
         MajorRecommendationRule majorRecommendationRule = new MajorRecommendationRule(
             kContainer,

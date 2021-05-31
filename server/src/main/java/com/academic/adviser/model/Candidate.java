@@ -42,6 +42,14 @@ public class Candidate implements UserDetails {
         this.grade = grade;
     }
 
+    public Candidate(BigFiveResults bigFiveResults) {
+        this.bigFiveResults = bigFiveResults;
+    }
+
+    public void setBigFiveResults(BigFiveResults bigFiveResults) {
+        this.bigFiveResults = bigFiveResults;
+    }
+
     public Timestamp getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }

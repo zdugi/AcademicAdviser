@@ -38,6 +38,7 @@ public class MajorRecommendationRule implements Rule {
         RecommendedMajors recommendedMajors = new RecommendedMajors();
 
         KieSession session = kContainer.newKieSession("ksession-recommendation-rules");
+        session.getAgenda().getAgendaGroup("major-recommend").setFocus();
 
         session.insert(recommendedMajors);
 

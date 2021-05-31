@@ -6,6 +6,7 @@ import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.drools.model.RecommendedMajors;
 
 rule "Recommend major"
+agenda-group "major-recommend"
 when
     $c: Candidate($grade: grade)
     $ci: City()
