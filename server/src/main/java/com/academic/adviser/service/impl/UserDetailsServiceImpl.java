@@ -17,10 +17,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Candidate candidate = candidateRepository.findByUsername(username);
+        Candidate candidate = candidateRepository.findByEmailAddress(username);
 
         if (candidate == null)
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+            throw new UsernameNotFoundException(String.format("No user found with email address '%s'.", username));
 
         return candidate;
     }

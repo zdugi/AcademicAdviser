@@ -64,7 +64,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 
 export default {
   name: "BigFiveSurvey",
@@ -103,14 +102,8 @@ export default {
     },
   },
   mounted() {
-    axios.get("http://localhost:8080/api/big-five/survey").then((response) => {
-      for (let question of response.data.questionDTOList) {
-        this.survey.push({
-          id: question.id,
-          text: question.text,
-          picked: Math.floor(Math.random() * 2 + 3),
-        });
-      }
+    this.$store.dispatch("getBigFiveTest").then(() => {
+      this.survey = this.$store.state.bigFiveQuestions;
     });
   },
 };

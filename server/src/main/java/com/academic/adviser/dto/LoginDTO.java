@@ -7,15 +7,15 @@ import javax.validation.constraints.Size;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class LoginDTO {
-    @NotBlank(message = "Username is mandatory.")
-    private String username;
+    @NotBlank(message = "Email address is mandatory.")
+    private String emailAddress;
 
     @NotBlank(message = "Password is mandatory.")
-    @Size(min=8, max=256, message = "Password should be between 8 and 256 characters.")
+    @Size(min=4, max=256, message = "Password should be between 8 and 256 characters.")
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     public String getPassword() {

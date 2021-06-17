@@ -18,13 +18,19 @@ public class Candidate implements UserDetails {
     private Integer id;
 
     @Column(unique = true)
-    private String username;
+    private String emailAddress;
 
     @Column(nullable = false)
     private String password;
 
     @Column
     private double grade;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
 
     @Column
     @Enumerated(EnumType.ORDINAL)
@@ -44,6 +50,15 @@ public class Candidate implements UserDetails {
 
     public Candidate(BigFiveResults bigFiveResults) {
         this.bigFiveResults = bigFiveResults;
+    }
+
+    public Candidate(String emailAddress, String password, double grade, String firstName, String lastName, Gender gender) {
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.grade = grade;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
     }
 
     public void setBigFiveResults(BigFiveResults bigFiveResults) {
@@ -74,6 +89,22 @@ public class Candidate implements UserDetails {
         return bigFiveResults;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Authority> authorityList = new ArrayList<>();
@@ -88,7 +119,7 @@ public class Candidate implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return emailAddress;
     }
 
     @Override
