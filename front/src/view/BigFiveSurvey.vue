@@ -22,6 +22,7 @@
                 v-bind:name="question.id"
                 value="1"
                 v-model="question.picked"
+                v-on:change="answerQuickSend(question.id, 1)"
               />
             </td>
             <td>
@@ -30,6 +31,7 @@
                 v-bind:name="question.id"
                 value="2"
                 v-model="question.picked"
+                v-on:change="answerQuickSend(question.id, 2)"
               />
             </td>
             <td>
@@ -38,6 +40,7 @@
                 v-bind:name="question.id"
                 value="3"
                 v-model="question.picked"
+                v-on:change="answerQuickSend(question.id, 3)"
               />
             </td>
             <td>
@@ -46,6 +49,7 @@
                 v-bind:name="question.id"
                 value="4"
                 v-model="question.picked"
+                v-on:change="answerQuickSend(question.id, 4)"
               />
             </td>
             <td>
@@ -54,16 +58,18 @@
                 v-bind:name="question.id"
                 value="5"
                 v-model="question.picked"
+                v-on:change="answerQuickSend(question.id, 5)"
               />
             </td>
           </tr>
         </tbody>
       </table>
-      <button class="float-right">Pošalji</button>
+      <button :disabled="filled" class="float-right">Pošalji</button>
     </form>
   </div>
 </template>
 <script>
+import axios from 'axios';
 
 export default {
   name: "BigFiveSurvey",
@@ -72,6 +78,11 @@ export default {
     return {
       survey: [],
     };
+  },
+  computed: {
+    filled() {
+      return this.survey.filter(s => !s.picked).length > 0
+    }
   },
   methods: {
     submit(event) {
@@ -100,6 +111,9 @@ export default {
         this.$router.push({ path: "career-test" });
       });
     },
+    answerQuickSend(id, score) {
+      axios.post("http://localhost:8080/api/big-five/tracker", {id: id, score: score})
+    }
   },
   mounted() {
     this.$store.dispatch("getBigFiveTest").then(() => {

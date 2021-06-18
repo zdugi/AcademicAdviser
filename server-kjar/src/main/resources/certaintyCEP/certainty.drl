@@ -1,0 +1,50 @@
+package certaintyCEP;
+import com.academic.adviser.drools.model.BigFiveFlyAnswer;
+import com.academic.adviser.drools.model.CertaintyReport;
+import java.lang.Math;
+
+declare BigFiveFlyAnswer
+    @role(event)
+    @timestamp(factTime)
+end
+
+declare DrasticDecisionChange
+    id: Integer
+    change: Integer
+    candidateId: Integer
+end
+
+rule "Record fact"
+when
+    $f: BigFiveFlyAnswer($id: id)
+    $report: CertaintyReport()
+    eval($report.exists($id) == false)
+then
+    $report.set($id, 1.0);
+end
+
+rule "First rapid answer change"
+when
+    $report: CertaintyReport()
+    $f1: BigFiveFlyAnswer($id: id, $g1: score, $cid1: candidateId)
+    eval($report.exists($id) == true)
+    $f2: BigFiveFlyAnswer(
+        $grade: score,
+        Math.abs(score - $g1) > 1,
+        $cid1 == candidateId,
+        this != $f1,
+        id == $id,
+        this meets[20s] $f1
+    )
+    not (DrasticDecisionChange($id == id, $cid1 == candidateId))
+then
+    insert( new DrasticDecisionChange($id, Math.abs($grade - $g1), $cid1) );
+end
+
+rule "Update certainty"
+when
+    $decision: DrasticDecisionChange($id: id, $change: change, $cid: candidateId)
+    $report: CertaintyReport($cid == candidateId)
+then
+    $report.set($id, 1.0 - $change / 10.0);
+end

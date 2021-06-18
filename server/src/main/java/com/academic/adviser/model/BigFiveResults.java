@@ -3,6 +3,7 @@ package com.academic.adviser.model;
 import com.academic.adviser.constants.TestConstants;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class BigFiveResults {
@@ -26,6 +27,9 @@ public class BigFiveResults {
     @Column(nullable = false)
     private Integer openness;
 
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true,  mappedBy = "id")
+    private List<BigFiveCertainty> certainties;
+
     public BigFiveResults() {
         this.extroversion = TestConstants.EXTROVERSION_START;
         this.agreeableness = TestConstants.AGREEABLENESS_START;
@@ -34,7 +38,12 @@ public class BigFiveResults {
         this.openness = TestConstants.OPENNESS_START;
     }
 
-    public BigFiveResults(Integer extroversion, Integer agreeableness, Integer conscientiousness, Integer neuroticism, Integer openness) {
+    public BigFiveResults(
+            Integer extroversion,
+            Integer agreeableness,
+            Integer conscientiousness,
+            Integer neuroticism,
+            Integer openness) {
         this.extroversion = extroversion;
         this.agreeableness = agreeableness;
         this.conscientiousness = conscientiousness;
@@ -104,5 +113,13 @@ public class BigFiveResults {
 
     public void subOpenness(Integer openness) {
         this.openness -= openness;
+    }
+
+    public List<BigFiveCertainty> getCertainties() {
+        return certainties;
+    }
+
+    public void setCertainties(List<BigFiveCertainty> certainties) {
+        this.certainties = certainties;
     }
 }

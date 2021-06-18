@@ -11,4 +11,8 @@
     <kbase name="careerTestRules" packages="careerTest">
         <ksession name="ksession-careertest-rules"/>
     </kbase>
+
+    <kbase name="certaintyCEP" packages="certaintyCEP">
+        <ksession name="ksession-certainty-rules"/>
+    </kbase>
 </kmodule>

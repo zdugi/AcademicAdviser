@@ -133,7 +133,7 @@ public class DormRecommendationRuleUnitTest {
         KieContainer kContainer = ks
                 .newKieContainer(ks.newReleaseId(
                         "org.adviserkjar", "server-kjar", "1.0-SNAPSHOT"));
-        
+
         Candidate candidate = new Candidate();
         candidate.setBigFiveResults(
                 new BigFiveResults(33, 33, 10, 2, 2));

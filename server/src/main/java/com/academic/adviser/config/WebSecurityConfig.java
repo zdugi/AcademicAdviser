@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
+                .antMatchers("/api/big-five/tracker").permitAll() //TODO delete
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()

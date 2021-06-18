@@ -1,5 +1,7 @@
 package com.academic.adviser.config;
 
+import com.academic.adviser.service.BigFiveService;
+import com.academic.adviser.service.impl.BigFiveServiceImpl;
 import com.academic.adviser.service.impl.UserDetailsServiceImpl;
 import com.academic.adviser.constants.Gender;
 import com.academic.adviser.drools.model.CareerTestNorm;

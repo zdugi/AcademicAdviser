@@ -24,7 +24,7 @@ export const store = createStore({
         state.bigFiveQuestions.push({
           id: question.id,
           text: question.text,
-          picked: Math.floor(Math.random() * 2 + 3),
+          picked: null,
         });
       }
     },
