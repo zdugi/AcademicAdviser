@@ -1,6 +1,6 @@
 <template>
   <div id="holder">
-    <el-menu class="el-menu-demo" mode="horizontal">
+    <el-menu class="el-menu-demo" :default-active="3" mode="horizontal">
       <span class="logo">
         <img src="../assets/student.png" width="40" />
         <h4>Academic Advisor</h4>
@@ -11,9 +11,14 @@
         ></el-menu-item>
       </el-tooltip>
       <el-tooltip content="Profil" placement="bottom">
-        <el-menu-item index="2"
-          ><i class="el-icon-user-solid"></i
-        ></el-menu-item>
+        <el-menu-item index="2">
+          <router-link to="/user" v-slot="{ href, navigate }" custom>
+            <a :href="href" @click="navigate"><i class="el-icon-user-solid"></i></a>
+          </router-link>
+        </el-menu-item>
+      </el-tooltip>
+      <el-tooltip content="Početna" placement="bottom">
+        <el-menu-item index="3"><i class="el-icon-s-home"></i></el-menu-item>
       </el-tooltip>
     </el-menu>
     <div class="line"></div>
@@ -48,7 +53,9 @@
           >
             <div v-for="(value, key) in academicLife.lifeCosts" :key="key">
               <h4>Informacije o ceni života u {{ key }}:</h4>
-              <p>Prosečna mesečna troškovi života: {{ value.lifeCost }} dinara</p>
+              <p>
+                Prosečna mesečna troškovi života: {{ value.lifeCost }} dinara
+              </p>
               <p>Prosečna mesečna cena stanarine: {{ value.rent }} dinara</p>
             </div>
           </el-card>

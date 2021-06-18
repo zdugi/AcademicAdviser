@@ -100,6 +100,18 @@ public class Candidate implements UserDetails {
         this.academicLife = academicLife;
     }
 
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public Integer getId() {
         return id;
     }

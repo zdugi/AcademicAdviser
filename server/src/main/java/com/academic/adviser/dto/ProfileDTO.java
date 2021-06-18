@@ -1,23 +1,17 @@
 package com.academic.adviser.dto;
 
-import com.academic.adviser.constants.Gender;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class RegistrationDTO {
+public class ProfileDTO {
     private Integer id;
 
-    @NotBlank(message = "Email address is mandatory.")
+    @NotBlank(message = "Email address name is mandatory.")
     private String emailAddress;
-
-    @NotBlank(message = "Password is mandatory.")
-    @Size(min=4, max=256, message = "Password should be between 4 and 256 characters.")
-    private String password;
 
     @NotBlank(message = "First name is mandatory.")
     private String firstName;
@@ -26,35 +20,55 @@ public class RegistrationDTO {
     private String lastName;
 
     @DecimalMax("5.0") @DecimalMin("1.0")
-    private double grade;
+    private Double grade;
 
-    private Gender gender;
+    public ProfileDTO() {}
+
+    public ProfileDTO(Integer id, String emailAddress, String firstName, String lastName, Double grade) {
+        this.id = id;
+        this.emailAddress = emailAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.grade = grade;
+    }
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getPassword() {
-        return password;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
     }
 
-    public double getGrade() {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Double getGrade() {
         return grade;
     }
 
-    public Gender getGender() {
-        return gender;
+    public void setGrade(Double grade) {
+        this.grade = grade;
     }
 }

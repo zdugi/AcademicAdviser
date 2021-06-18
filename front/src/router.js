@@ -4,6 +4,7 @@ import CareerTest from '@/view/CareerTest.vue';
 import Login from '@/view/Login.vue';
 import Registration from '@/view/Registration.vue';
 import Homepage from '@/view/Homepage.vue';
+import Profile from '@/view/Profile.vue';
 import { store } from './store.js';
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -39,6 +40,12 @@ const routes = [
     path: '/career-test',
     name: 'Career test',
     component: <CareerTest />,
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/user',
+    name: 'Profile',
+    component: <Profile />,
     beforeEnter: ifAuthenticated
   },
   {

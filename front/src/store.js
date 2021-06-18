@@ -8,7 +8,10 @@ export const store = createStore({
       token: localStorage.getItem('user-token') || '',
       careerQuestions: [],
       bigFiveQuestions: [],
-      academicLife: null
+      cities: {},
+      academicLife: null,
+      profile: null,
+      desiredCity: localStorage.getItem('desired-city') || ''
     }
   },
   mutations: {
@@ -27,6 +30,15 @@ export const store = createStore({
     },
     setAcademicLife(state, academicLife) {
       state.academicLife = academicLife;
+    },
+    setProfileData(state, profile) {
+      state.profile = profile;
+    },
+    setCities(state, cities) {
+      state.cities = cities;
+    },
+    setDesiredCity(state, city) {
+      state.desiredCity = city;
     },
     login(state, token) {
       state.token = token
@@ -70,6 +82,7 @@ export const store = createStore({
       return new Promise((resolve) => {
         commit('logout')
         localStorage.removeItem('user-token')
+        localStorage.removeItem('desired-city')
         // remove the axios default header
         delete axios.defaults.headers.common['Authorization']
         resolve()
@@ -90,7 +103,7 @@ export const store = createStore({
     submitCareerTest({ commit, state }, careerTest) {
       console.log(commit, state, careerTest)
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:8080/api/career-test/0', careerTest).then(
+        axios.post(`http://localhost:8080/api/career-test/${state.desiredCity}`, careerTest).then(
           (response) => {
             console.log(response);
             resolve(response);
@@ -124,12 +137,57 @@ export const store = createStore({
         })
       });
     },
+    getProfile({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios.get("http://localhost:8080/api/user").then(
+          (response) => {
+            commit('setProfileData', response.data);
+            resolve(response);
+          }
+        ).catch(() => {
+          reject()
+        })
+      });
+    },
+    // eslint-disable-next-line no-unused-vars
+    updateProfile({ commit }, profile) {
+      return new Promise((resolve, reject) => {
+        axios.post("http://localhost:8080/api/user", profile).then(
+          (response) => {
+            resolve(response);
+          }
+        ).catch(() => {
+          reject()
+        })
+      });
+    },
+    // eslint-disable-next-line no-unused-vars
+    getCities({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios.get("http://localhost:8080/api/user/cities").then(
+          (response) => {
+            commit('setCities', response.data);
+            resolve(response);
+          }
+        ).catch(() => {
+          reject()
+        })
+      });
+    },
+    setDesired({ commit }, desiredCity) {
+      return new Promise((resolve) => {
+        commit('setDesiredCity', desiredCity)
+        localStorage.setItem('desired-city', desiredCity)
+        resolve()
+      });
+    },
     // eslint-disable-next-line no-unused-vars
     placeToken({ commit, state }) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token
     }
   },
   getters: {
-    isAuthenticated: state => !!state.token
+    isAuthenticated: state => !!state.token,
+    getDesiredCity: state => state.desiredCity
   }
 })
