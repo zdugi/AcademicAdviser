@@ -1,5 +1,6 @@
 package com.academic.adviser.controller;
 
+import com.academic.adviser.dto.BigFiveAnswerDTO;
 import com.academic.adviser.dto.BigFiveQuestionDTO;
 import com.academic.adviser.dto.BigFiveSurveyAnswersDTO;
 import com.academic.adviser.dto.BigFiveSurveyDTO;
@@ -30,5 +31,11 @@ public class BigFiveController {
                                           Principal principal) throws IOException {
         return new ResponseEntity<>(
                 bigFiveService.submitBigFiveSurvey(surveyDTO, principal.getName()), HttpStatus.OK);
+    }
+
+    @PostMapping("/tracker")
+    public ResponseEntity<?> quickAnswer(@RequestBody BigFiveAnswerDTO answerDTO, Principal principal) {
+        bigFiveService.updateCertainty(answerDTO, principal.getName());
+        return new ResponseEntity<>(answerDTO, HttpStatus.OK);
     }
 }

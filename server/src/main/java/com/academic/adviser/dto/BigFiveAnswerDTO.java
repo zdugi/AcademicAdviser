@@ -22,4 +22,6 @@ public class BigFiveAnswerDTO {
     public Integer getScore() {
         return score;
     }
+
+
 }
