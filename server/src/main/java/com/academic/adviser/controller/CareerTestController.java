@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,13 @@ public class CareerTestController {
     private List<CareerTestNorm> careerTestNormList;
 
     @PostMapping
-    public ResponseEntity<?> submitTest(@RequestBody CareerTestAnswerDTO careerTestAnswerDTO) {
+    public ResponseEntity<?> submitTest(
+            @RequestBody CareerTestAnswerDTO careerTestAnswerDTO, Principal principal) {
         CareerArea finalArea = careerTestService.submitCareerTest(careerTestAnswerDTO);
         List<Major> majors = recommendationService.getMajors(
                 finalArea,
                 new City(0, "Beograd", 55356.0, 40000.0),
-                new Candidate(4.5)
+                principal.getName()
                 );
 
         return new ResponseEntity<>(majors, HttpStatus.OK);

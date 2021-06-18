@@ -11,5 +11,5 @@ import java.io.IOException;
 public interface BigFiveService {
     BigFiveSurveyDTO getBigFiveQuestions();
 
-    CareerTestDTO submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) throws IOException;
+    CareerTestDTO submitBigFiveSurvey(BigFiveSurveyAnswersDTO answer, String candidateEmail) throws IOException;
 }

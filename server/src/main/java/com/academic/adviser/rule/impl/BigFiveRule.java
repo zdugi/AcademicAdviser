@@ -81,4 +81,8 @@ public class BigFiveRule implements Rule {
 
         return new CareerTestDTO(questions);
     }
+
+    public BigFiveResults getBigFiveResults() {
+        return bigFiveResults;
+    }
 }

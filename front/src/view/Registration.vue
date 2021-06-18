@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #holder {
   position: absolute;
   top: 0;

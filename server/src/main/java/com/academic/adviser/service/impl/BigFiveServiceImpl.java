@@ -10,8 +10,10 @@ import com.academic.adviser.mapper.BigFiveQuestionMapper;
 import com.academic.adviser.mapper.QuestionPairMapper;
 import com.academic.adviser.model.BigFiveQuestion;
 import com.academic.adviser.model.BigFiveResults;
+import com.academic.adviser.model.Candidate;
 import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.repository.BigFiveQuestionsRepository;
+import com.academic.adviser.repository.CandidateRepository;
 import com.academic.adviser.repository.CareerAreaRepository;
 import com.academic.adviser.repository.QuestionPairRepository;
 import com.academic.adviser.rule.impl.BigFiveRule;
@@ -36,6 +38,9 @@ public class BigFiveServiceImpl implements BigFiveService {
     private QuestionPairRepository questionPairRepository;
 
     @Autowired
+    private CandidateRepository candidateRepository;
+
+    @Autowired
     private KieContainer kContainer;
 
     @Override
@@ -52,12 +57,17 @@ public class BigFiveServiceImpl implements BigFiveService {
     }
 
     @Override
-    public CareerTestDTO submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers) {
+    public CareerTestDTO submitBigFiveSurvey(BigFiveSurveyAnswersDTO answers, String candidateEmail) {
         BigFiveRule rule = new BigFiveRule(
                 kContainer,
                 answers,
                 questionPairRepository,
                 careerAreaRepository);
+
+        Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
+        candidate.setBigFiveResults(rule.getBigFiveResults());
+        candidateRepository.save(candidate);
+
         return (CareerTestDTO) rule.runRule();
     }
 }

@@ -1,6 +1,7 @@
 package com.academic.adviser.service.impl;
 
 import com.academic.adviser.model.*;
+import com.academic.adviser.repository.CandidateRepository;
 import com.academic.adviser.repository.CareerAreaRepository;
 import com.academic.adviser.repository.DormitoryRepository;
 import com.academic.adviser.repository.MajorRepository;
@@ -27,8 +28,13 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Autowired
     private DormitoryRepository dormitoryRepository;
 
+    @Autowired
+    private CandidateRepository candidateRepository;
+
     @Override
-    public List<Major> getMajors(CareerArea finalArea, City desiredCity, Candidate candidate) {
+    public List<Major> getMajors(CareerArea finalArea, City desiredCity, String candidateEmail) {
+        Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
+
         MajorRecommendationRule majorRecommendationRule = new MajorRecommendationRule(
                 kContainer,
                 majorRepository,

@@ -3,6 +3,7 @@ import BigFiveSurvey from '@/view/BigFiveSurvey.vue';
 import CareerTest from '@/view/CareerTest.vue';
 import Login from '@/view/Login.vue';
 import Registration from '@/view/Registration.vue';
+import Homepage from '@/view/Homepage.vue';
 import { store } from './store.js';
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -24,6 +25,12 @@ const ifAuthenticated = (to, from, next) => {
 const routes = [
   {
     path: '/',
+    name: 'Homepage',
+    component: <Homepage />,
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/big-five',
     name: 'Big five survey',
     component: <BigFiveSurvey />,
     beforeEnter: ifAuthenticated

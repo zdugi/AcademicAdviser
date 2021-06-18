@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Principal;
 
 
 @RestController
@@ -25,7 +26,9 @@ public class BigFiveController {
     }
 
     @PostMapping("/survey")
-    public ResponseEntity<?> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO) throws IOException {
-        return new ResponseEntity<>(bigFiveService.submitBigFiveSurvey(surveyDTO), HttpStatus.OK);
+    public ResponseEntity<?> submitSurvey(@RequestBody BigFiveSurveyAnswersDTO surveyDTO,
+                                          Principal principal) throws IOException {
+        return new ResponseEntity<>(
+                bigFiveService.submitBigFiveSurvey(surveyDTO, principal.getName()), HttpStatus.OK);
     }
 }
