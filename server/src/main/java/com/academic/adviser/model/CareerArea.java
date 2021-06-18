@@ -33,11 +33,12 @@ public class CareerArea {
         this.rang = rang;
     }
 
-    @Modifies({"id", "name", "rang"})
+    @Modifies({"id", "name", "rang", "traits"})
     public void changeProps(CareerArea careerArea) {
         this.id = careerArea.getId();
         this.name = careerArea.getName();
         this.rang = careerArea.getRang();
+        this.traits = careerArea.getTraits();
     }
 
     public Integer getId() {

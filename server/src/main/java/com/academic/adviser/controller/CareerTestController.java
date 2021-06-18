@@ -11,6 +11,7 @@ import com.academic.adviser.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -26,24 +27,30 @@ public class CareerTestController {
     @Autowired
     private RecommendationService recommendationService;
 
-    @Autowired
-    private List<CareerTestNorm> careerTestNormList;
-
-    @PostMapping
+    @PostMapping("/{cityId}")
     public ResponseEntity<?> submitTest(
-            @RequestBody CareerTestAnswerDTO careerTestAnswerDTO, Principal principal) {
-        CareerArea finalArea = careerTestService.submitCareerTest(careerTestAnswerDTO);
+            @PathVariable("cityId") Integer cityId,
+            @RequestBody CareerTestAnswerDTO careerTestAnswerDTO,
+            Principal principal
+            ) {
+        CareerArea finalArea = careerTestService.submitCareerTest(careerTestAnswerDTO, principal.getName());
         List<Major> majors = recommendationService.getMajors(
                 finalArea,
-                new City(0, "Beograd", 55356.0, 40000.0),
+                cityId,
                 principal.getName()
                 );
+        recommendationService.placeFinalResults(majors, principal.getName());
 
-        return new ResponseEntity<>(majors, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<?> test() {
-        return new ResponseEntity<>(careerTestNormList, HttpStatus.OK);
+    public ResponseEntity<?> getFinalResult(Principal principal) {
+        try {
+            return new ResponseEntity<>(
+                    recommendationService.getFinalResults(principal.getName()), HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

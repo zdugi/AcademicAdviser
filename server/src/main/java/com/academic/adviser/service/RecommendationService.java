@@ -1,11 +1,14 @@
 package com.academic.adviser.service;
 
+import com.academic.adviser.dto.AcademicLifeDTO;
 import com.academic.adviser.model.*;
 
 import java.util.List;
 
 public interface RecommendationService {
-    List<Major> getMajors(CareerArea finalArea, City desiredCity, String candidateEmail);
+    List<Major> getMajors(CareerArea finalArea, Integer city_id, String candidateEmail);
 
-    List<Dormitory> getDorms(List<Major> majors, Candidate candidate);
+    void placeFinalResults(List<Major> majors, String candidateEmail);
+
+    AcademicLifeDTO getFinalResults(String candidateEmail);
 }

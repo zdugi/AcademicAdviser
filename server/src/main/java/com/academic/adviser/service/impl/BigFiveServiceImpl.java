@@ -64,10 +64,12 @@ public class BigFiveServiceImpl implements BigFiveService {
                 questionPairRepository,
                 careerAreaRepository);
 
+        CareerTestDTO careerTest = (CareerTestDTO) rule.runRule();
+
         Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
         candidate.setBigFiveResults(rule.getBigFiveResults());
         candidateRepository.save(candidate);
 
-        return (CareerTestDTO) rule.runRule();
+        return careerTest;
     }
 }

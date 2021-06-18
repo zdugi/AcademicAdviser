@@ -21,7 +21,6 @@ end
 
 rule "Find max career area norm"
 salience 1
-no-loop
 when
     $finalArea: CareerArea(traits == null)
     Number($maxScore: intValue) from accumulate(

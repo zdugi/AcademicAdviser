@@ -39,6 +39,9 @@ public class Candidate implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     private BigFiveResults bigFiveResults;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private AcademicLife academicLife;
+
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
@@ -87,6 +90,14 @@ public class Candidate implements UserDetails {
 
     public BigFiveResults getBigFiveResults() {
         return bigFiveResults;
+    }
+
+    public AcademicLife getAcademicLife() {
+        return academicLife;
+    }
+
+    public void setAcademicLife(AcademicLife academicLife) {
+        this.academicLife = academicLife;
     }
 
     public Integer getId() {

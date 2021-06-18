@@ -1,6 +1,7 @@
 package com.academic.adviser.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class City {
@@ -43,5 +44,18 @@ public class City {
 
     public Double getRent() {
         return rent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return id.equals(city.id) && name.equals(city.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

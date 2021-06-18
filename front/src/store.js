@@ -7,7 +7,8 @@ export const store = createStore({
     return {
       token: localStorage.getItem('user-token') || '',
       careerQuestions: [],
-      bigFiveQuestions: []
+      bigFiveQuestions: [],
+      academicLife: null
     }
   },
   mutations: {
@@ -23,6 +24,9 @@ export const store = createStore({
           picked: Math.floor(Math.random() * 2 + 3),
         });
       }
+    },
+    setAcademicLife(state, academicLife) {
+      state.academicLife = academicLife;
     },
     login(state, token) {
       state.token = token
@@ -86,7 +90,7 @@ export const store = createStore({
     submitCareerTest({ commit, state }, careerTest) {
       console.log(commit, state, careerTest)
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:8080/api/career-test', careerTest).then(
+        axios.post('http://localhost:8080/api/career-test/0', careerTest).then(
           (response) => {
             console.log(response);
             resolve(response);
@@ -107,6 +111,22 @@ export const store = createStore({
           reject()
         })
       });
+    },
+    getAcademicLife({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios.get("http://localhost:8080/api/career-test").then(
+          (response) => {
+            commit('setAcademicLife', response.data);
+            resolve(response);
+          }
+        ).catch(() => {
+          reject()
+        })
+      });
+    },
+    // eslint-disable-next-line no-unused-vars
+    placeToken({ commit, state }) {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token
     }
   },
   getters: {

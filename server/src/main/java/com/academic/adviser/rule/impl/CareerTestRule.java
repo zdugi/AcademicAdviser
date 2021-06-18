@@ -4,6 +4,7 @@ import com.academic.adviser.drools.model.CareerTestNorm;
 import com.academic.adviser.dto.CareerTestAnswerDTO;
 import com.academic.adviser.dto.QuestionPairAnswerDTO;
 import com.academic.adviser.mapper.QuestionPairAnswerMapper;
+import com.academic.adviser.model.Candidate;
 import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.model.QuestionPair;
 import com.academic.adviser.repository.CareerAreaRepository;
@@ -20,19 +21,22 @@ public class CareerTestRule implements Rule {
     private QuestionPairRepository questionPairRepository;
     private CareerAreaRepository careerAreaRepository;
     private List<CareerTestNorm> careerTestNormList;
+    private Candidate candidate;
 
     public CareerTestRule(
             CareerTestAnswerDTO careerTestAnswerDTO,
             KieContainer kContainer,
             QuestionPairRepository questionPairRepository,
             CareerAreaRepository careerAreaRepository,
-            List<CareerTestNorm> careerTestNormList
+            List<CareerTestNorm> careerTestNormList,
+            Candidate candidate
     ) {
         this.careerTestAnswerDTO = careerTestAnswerDTO;
         this.kContainer = kContainer;
         this.questionPairRepository = questionPairRepository;
         this.careerAreaRepository = careerAreaRepository;
         this.careerTestNormList = careerTestNormList;
+        this.candidate = candidate;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class CareerTestRule implements Rule {
         KieSession session = kContainer.newKieSession("ksession-careertest-rules");
         CareerArea finalArea = new CareerArea();
 
+        session.insert(candidate);
         for(CareerArea careerArea : careerAreaRepository.findAll()) {
             session.insert(careerArea);
         }

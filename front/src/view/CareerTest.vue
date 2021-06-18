@@ -67,8 +67,7 @@ export default {
       }
 
       this.$store.dispatch("submitCareerTest", payload).then(() => {
-        // redirect
-        console.log("poslato");
+        this.$router.push({ path: "/" });
       });
     },
     pairHandler(index, questionNum) {

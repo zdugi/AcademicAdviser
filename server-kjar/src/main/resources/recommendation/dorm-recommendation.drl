@@ -4,7 +4,7 @@ import com.academic.adviser.model.Candidate;
 import com.academic.adviser.model.City;
 import com.academic.adviser.model.BigFiveResults;
 import com.academic.adviser.model.Dormitory;
-import com.academic.adviser.drools.model.AcademicLife;
+import com.academic.adviser.model.AcademicLife;
 
 import java.util.List;
 import function java.lang.Math.abs;
@@ -19,7 +19,7 @@ when
     (
         $dorms: List(size > 0) from collect (
             Dormitory($d: this, city.getId() == $city.getId())
-        ) and eval($e > 30 && $a > 20 && $n < 10)
+        ) and eval(($e > 25 || $a > 20) && $n < 20)
     ) or (
         accumulate(
             Dormitory($d: this, $candidates: candidates, city.getId() == $city.getId()) and
@@ -36,7 +36,6 @@ when
     )
 then
     $dl.extendDorms($dorms);
-    System.out.println($dorms.size());
 end
 
 rule "Inform about life cost"
@@ -53,5 +52,4 @@ when
     )
 then
     $dl.addCityLifeCost($city);
-    System.out.println("Life cost: " + $city.getLifeCost() + "\nRent: " + $city.getRent());
 end

@@ -5,6 +5,7 @@ import com.academic.adviser.constants.Gender;
 import com.academic.adviser.drools.model.CareerTestNorm;
 import com.academic.adviser.dto.CareerTestAnswerDTO;
 import com.academic.adviser.dto.QuestionPairAnswerDTO;
+import com.academic.adviser.model.Candidate;
 import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.model.POQuestion;
 import com.academic.adviser.model.QuestionPair;
@@ -107,17 +108,23 @@ public class CareerTestRuleUnitTest {
 
         ArrayList<QuestionPairAnswerDTO> answer = new ArrayList<>();
         for (int i = 0; i < 80; i++)
-            answer.add(new QuestionPairAnswerDTO(1, 1, 2));
+            answer.add(new QuestionPairAnswerDTO(i, 1, 0));
         CareerTestAnswerDTO careerTestAnswerDTO = new CareerTestAnswerDTO(answer);
+
+        Candidate candidate = new Candidate(
+                "perica", "12345", 4.5,
+                "Petar", "Petrovic", Gender.MALE
+        );
 
         CareerTestRule careerTestRule = new CareerTestRule(
                 careerTestAnswerDTO,
                 kContainer,
                 questionPairRepository,
                 careerAreaRepository,
-                getNorms());
+                getNorms(),
+                candidate);
 
         CareerArea area = (CareerArea) careerTestRule.runRule();
-        assertEquals(area.getId(), 2);
+        assertEquals(area.getId(), 1);
     }
 }

@@ -1,10 +1,9 @@
 package com.academic.adviser.service.impl;
 
+import com.academic.adviser.dto.AcademicLifeDTO;
+import com.academic.adviser.mapper.AcademicLifeMapper;
 import com.academic.adviser.model.*;
-import com.academic.adviser.repository.CandidateRepository;
-import com.academic.adviser.repository.CareerAreaRepository;
-import com.academic.adviser.repository.DormitoryRepository;
-import com.academic.adviser.repository.MajorRepository;
+import com.academic.adviser.repository.*;
 import com.academic.adviser.rule.impl.DormRecommendationRule;
 import com.academic.adviser.rule.impl.MajorRecommendationRule;
 import com.academic.adviser.service.RecommendationService;
@@ -31,10 +30,13 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Autowired
     private CandidateRepository candidateRepository;
 
-    @Override
-    public List<Major> getMajors(CareerArea finalArea, City desiredCity, String candidateEmail) {
-        Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
+    @Autowired
+    private CityRepository cityRepository;
 
+    @Override
+    public List<Major> getMajors(CareerArea finalArea, Integer cityId, String candidateEmail) {
+        Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
+        City desiredCity = cityRepository.getOne(cityId);
         MajorRecommendationRule majorRecommendationRule = new MajorRecommendationRule(
                 kContainer,
                 majorRepository,
@@ -46,13 +48,24 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
-    public List<Dormitory> getDorms(List<Major> majors, Candidate candidate) {
+    public void placeFinalResults(List<Major> majors, String candidateEmail) {
+        Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
+
         DormRecommendationRule dormRecommendationRule = new DormRecommendationRule(
                 kContainer,
                 majors,
                 candidate,
                 dormitoryRepository);
 
-        return (List<Dormitory>) dormRecommendationRule.runRule();
+        AcademicLife academicLife = (AcademicLife) dormRecommendationRule.runRule();
+        candidate.setAcademicLife(academicLife);
+        candidateRepository.save(candidate);
+    }
+
+    @Override
+    public AcademicLifeDTO getFinalResults(String candidateEmail) {
+        Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
+
+        return new AcademicLifeMapper().toDto(candidate.getAcademicLife());
     }
 }

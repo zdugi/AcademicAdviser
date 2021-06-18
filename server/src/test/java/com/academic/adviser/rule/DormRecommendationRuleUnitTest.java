@@ -1,6 +1,6 @@
 package com.academic.adviser.rule;
 
-import com.academic.adviser.drools.model.AcademicLife;
+import com.academic.adviser.model.AcademicLife;
 import com.academic.adviser.model.*;
 import com.academic.adviser.repository.DormitoryRepository;
 import com.academic.adviser.rule.impl.DormRecommendationRule;

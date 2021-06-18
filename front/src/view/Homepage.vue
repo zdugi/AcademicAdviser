@@ -17,7 +17,7 @@
       </el-tooltip>
     </el-menu>
     <div class="line"></div>
-    <el-card class="box-card" shadow="always">
+    <el-card v-if="!academicLife" class="box-card" shadow="always">
       <p style="text-align: center">
         Cilj ovog testiranja je da vam olakša izbor daljih studija i da vas što
         bolje usmeri ka željenim oblastima.
@@ -30,13 +30,55 @@
         >Započnite test</el-button
       >
     </el-card>
+    <el-card v-if="academicLife" class="result-card">
+      <div style="margin-bottom: 15px">
+        <el-card class="in-blocks" shadow="always">
+          <h4>Ovo su predloženi smerovi:</h4>
+          <ul>
+            <li v-for="major of academicLife.majorNames" :key="major">
+              {{ major }}
+            </li>
+          </ul>
+        </el-card>
+        <div class="in-blocks">
+          <el-card
+            v-if="!isEmpty(academicLife.lifeCosts)"
+            v-bind:style="{ height: height + '%', overflow: 'auto' }"
+            shadow="always"
+          >
+            <div v-for="(value, key) in academicLife.lifeCosts" :key="key">
+              <h4>Informacije o ceni života u {{ key }}:</h4>
+              <p>Prosečna mesečna troškovi života: {{ value.lifeCost }} dinara</p>
+              <p>Prosečna mesečna cena stanarine: {{ value.rent }} dinara</p>
+            </div>
+          </el-card>
+          <el-card
+            v-if="!isEmpty(academicLife.dormitories)"
+            v-bind:style="{ height: height + '%', overflow: 'auto' }"
+            style="height: 50%"
+            shadow="always"
+          >
+            <h4>Lista mogućih domova u kojem bi ste mogli živeti:</h4>
+            <div v-for="(value, key) in academicLife.dormitories" :key="key">
+              <h4>{{ key }}:</h4>
+              <ul>
+                <li v-for="dorm in value" :key="dorm">{{ dorm }}</li>
+              </ul>
+            </div>
+          </el-card>
+        </div>
+      </div>
+    </el-card>
   </div>
 </template>
 <script>
 export default {
   name: "Homepage",
   data: () => {
-    return {};
+    return {
+      academicLife: null,
+      height: null,
+    };
   },
   methods: {
     logout() {
@@ -44,8 +86,24 @@ export default {
         this.$router.push({ path: "/login" });
       });
     },
+    isEmpty(dict) {
+      return Object.keys(dict).length == 0;
+    },
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch("getAcademicLife").then(() => {
+      this.academicLife = this.$store.state.academicLife;
+      if (
+        Object.keys(this.academicLife.dormitories).length == 0 ||
+        Object.keys(this.academicLife.lifeCosts).length == 0
+      ) {
+        this.height = 100;
+      } else {
+        this.height = 50;
+      }
+      console.log(this.academicLife);
+    });
+  },
 };
 </script>
 
@@ -66,7 +124,34 @@ export default {
   width: 300px;
   margin-top: 200px;
   margin-left: calc(50% - 150px);
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.result-card {
+  width: 1000px;
+  margin-top: 25px;
+  margin-left: calc(50% - 500px);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.in-blocks:first-child {
+  width: 50% !important;
+  display: inline-block !important;
+  overflow: auto;
+}
+
+.in-blocks {
+  width: 50%;
+  height: 500px;
+  display: inline-block;
+}
+
+li {
+  font-size: 15px;
+}
+
+p {
+  margin: 0;
 }
 
 .el-menu-item {
