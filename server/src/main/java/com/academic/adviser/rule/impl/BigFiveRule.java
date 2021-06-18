@@ -27,20 +27,43 @@ public class BigFiveRule implements Rule {
     private QuestionPairRepository questionPairRepository;
     private CareerAreaRepository careerAreaRepository;
 
+    private Double extroversionWeight;
+    private Double conscientiousnessWeight;
+    private Double neuroticismWeight;
+    private Double opennessWeight;
+    private Double agreeablenessWeight;
+
     public BigFiveRule(KieContainer kContainer,
                        BigFiveSurveyAnswersDTO answers,
                        QuestionPairRepository questionPairRepository,
-                       CareerAreaRepository careerAreaRepository) {
+                       CareerAreaRepository careerAreaRepository,
+                       Double extroversionWeight,
+                       Double conscientiousnessWeight,
+                       Double neuroticismWeight,
+                       Double opennessWeight,
+                       Double agreeablenessWeight) {
         this.session = kContainer.newKieSession("ksession-bigfive-rules");
         this.bigFiveResults = new BigFiveResults();
         this.answers = answers;
         this.careerAreaRepository = careerAreaRepository;
         this.questionPairRepository = questionPairRepository;
+
+        this.extroversionWeight = extroversionWeight;
+        this.conscientiousnessWeight = conscientiousnessWeight;
+        this.neuroticismWeight = neuroticismWeight;
+        this.opennessWeight = opennessWeight;
+        this.agreeablenessWeight = agreeablenessWeight;
     }
 
     @Override
     public Object runRule() {
         BigFiveAnswerMapper bigFiveAnswerMapper = new BigFiveAnswerMapper();
+
+        session.setGlobal("extroversionWeight", this.extroversionWeight);
+        session.setGlobal("conscientiousnessWeight", this.conscientiousnessWeight);
+        session.setGlobal("neuroticismWeight", this.neuroticismWeight);
+        session.setGlobal("opennessWeight", this.opennessWeight);
+        session.setGlobal("agreeablenessWeight", this.agreeablenessWeight);
 
         session.insert(bigFiveResults);
         for(BigFiveAnswerDTO answerDTO : answers.getAnswers()) {

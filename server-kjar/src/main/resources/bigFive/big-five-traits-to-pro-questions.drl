@@ -4,13 +4,19 @@ import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.constants.BigFiveTraitLevel;
 import com.academic.adviser.drools.model.Traits;
 import com.academic.adviser.drools.model.CareerAreas;
+import java.lang.Math;
 
+global Double extroversionWeight;
+global Double conscientiousnessWeight;
+global Double neuroticismWeight;
+global Double opennessWeight;
+global Double agreeablenessWeight;
 
 rule "High Extroversion"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(extroversion > 20)
+    $r: BigFiveResults(extroversion > Math.floor(20*extroversionWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.HIGH_EXTROVERSION); }
@@ -20,7 +26,7 @@ rule "Low Extroversion"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(extroversion <= 20)
+    $r: BigFiveResults(extroversion <= Math.floor(20*extroversionWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.LOW_EXTROVERSION); }
@@ -30,7 +36,7 @@ rule "High Conscientiousness"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(conscientiousness > 20)
+    $r: BigFiveResults(conscientiousness > Math.floor(20*conscientiousnessWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.HIGH_CONSCIENTIOUSNESS); }
@@ -40,7 +46,7 @@ rule "Low Conscientiousness"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(conscientiousness <= 20)
+    $r: BigFiveResults(conscientiousness <= Math.floor(20*conscientiousnessWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.LOW_CONSCIENTIOUSNESS); }
@@ -50,7 +56,7 @@ rule "High Neuroticism"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(neuroticism > 20)
+    $r: BigFiveResults(neuroticism > Math.floor(20*neuroticismWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.HIGH_NEUROTICISM); }
@@ -60,7 +66,7 @@ rule "Low Neuroticism"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(neuroticism <= 20)
+    $r: BigFiveResults(neuroticism <= Math.floor(20*neuroticismWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.LOW_NEUROTICISM); }
@@ -70,7 +76,7 @@ rule "High Openness"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(openness > 20)
+    $r: BigFiveResults(openness > Math.floor(20*opennessWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.HIGH_OPENNESS); }
@@ -80,7 +86,7 @@ rule "Low Openness"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(openness <= 20)
+    $r: BigFiveResults(openness <= Math.floor(20*opennessWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.LOW_OPENNESS); }
@@ -90,7 +96,7 @@ rule "High Agreeableness"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(agreeableness > 20)
+    $r: BigFiveResults(agreeableness > Math.floor(20*agreeablenessWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.HIGH_AGREEABLENESS); }
@@ -100,7 +106,7 @@ rule "Low Agreeableness"
 agenda-group "detect-personality"
 lock-on-active true
 when
-    $r: BigFiveResults(agreeableness <= 20)
+    $r: BigFiveResults(agreeableness <= Math.floor(20*agreeablenessWeight))
     $t: Traits()
 then
     modify($t) { addTrait(BigFiveTraitLevel.LOW_AGREEABLENESS); }

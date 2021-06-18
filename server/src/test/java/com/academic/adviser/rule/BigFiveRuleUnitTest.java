@@ -76,7 +76,12 @@ public class BigFiveRuleUnitTest {
                 kContainer,
                 answers,
                 questionPairRepository,
-                careerAreaRepository);
+                careerAreaRepository,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0);
 
         CareerTestDTO careerTestDTO = (CareerTestDTO) rule.runRule();
         assertEquals(careerTestDTO.getQuestions().size(), 14);

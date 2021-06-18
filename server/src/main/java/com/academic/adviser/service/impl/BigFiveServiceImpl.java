@@ -1,5 +1,6 @@
 package com.academic.adviser.service.impl;
 
+import com.academic.adviser.constants.BigFiveTrait;
 import com.academic.adviser.constants.BigFiveTraitLevel;
 import com.academic.adviser.drools.model.*;
 import com.academic.adviser.dto.*;
@@ -86,19 +87,55 @@ public class BigFiveServiceImpl implements BigFiveService {
         Candidate candidate = candidateRepository.findByEmailAddress(candidateEmail);
         CertaintyReport certaintyReport = this.popBigFiveCertainty(candidate.getId());
 
+        List<BigFiveCertainty> certainties =
+                certaintyReport.getReport().keySet().stream().map(qid -> new BigFiveCertainty(
+                        this.bigFiveQuestionsRepository.getOne(qid), certaintyReport.getReport().get(qid)))
+                        .collect(Collectors.toList());
+
+        // calculate averages
+        HashMap<BigFiveTrait, Double> weights = new HashMap<>();
+        for (BigFiveCertainty certainty : certainties) {
+            certainty.getCertainty();
+            if (weights.containsKey(certainty.getBigFiveQuestion().getTrait())) {
+                weights.put(
+                        certainty.getBigFiveQuestion().getTrait(),
+                        weights.get(certainty.getBigFiveQuestion().getTrait()) + certainty.getCertainty());
+            } else {
+                weights.put(
+                        certainty.getBigFiveQuestion().getTrait(),
+                        certainty.getCertainty());
+            }
+        }
+
+        Double extroversionWeight = weights.get(BigFiveTrait.EXTROVERSION) / 10.0;
+        Double conscientiousnessWeight = weights.get(BigFiveTrait.CONSCIENTIOUSNESS) / 10.0;
+        Double neuroticismWeight = weights.get(BigFiveTrait.NEUROTICISM) / 10.0;
+        Double opennessWeight = weights.get(BigFiveTrait.OPENNESS) / 10.0;
+        Double agreeablenessWeight = weights.get(BigFiveTrait.AGREEABLENESS) / 10.0;
+
+        System.out.println(
+                extroversionWeight + " " +
+                        conscientiousnessWeight + " " +
+                        neuroticismWeight + " " +
+                        opennessWeight + " " +
+                        agreeablenessWeight
+                );
+
         BigFiveRule rule = new BigFiveRule(
                 kContainer,
                 answers,
                 questionPairRepository,
-                careerAreaRepository);
+                careerAreaRepository,
+                extroversionWeight,
+                conscientiousnessWeight,
+                neuroticismWeight,
+                opennessWeight,
+                agreeablenessWeight);
+
+        BigFiveResults bigFiveResults = rule.getBigFiveResults();
 
         CareerTestDTO careerTest = (CareerTestDTO) rule.runRule();
 
-        BigFiveResults bigFiveResults = rule.getBigFiveResults();
-        List<BigFiveCertainty> certainties =
-                certaintyReport.getReport().keySet().stream().map(qid -> new BigFiveCertainty(
-                                this.bigFiveQuestionsRepository.getOne(qid), certaintyReport.getReport().get(qid)))
-                .collect(Collectors.toList());
         bigFiveResults.setCertainties(certainties);
 
         candidate.setBigFiveResults(bigFiveResults);
@@ -109,7 +146,7 @@ public class BigFiveServiceImpl implements BigFiveService {
 
     private CertaintyReport popBigFiveCertainty(Integer candidateId) {
         CertaintyReport certaintyReport = this.certaintyReportHashMap.get(candidateId);
-        this.certaintyReportHashMap.remove(candidateId);
+        //this.certaintyReportHashMap.remove(candidateId);
         //TODO remove?
         return certaintyReport;
     }
