@@ -128,7 +128,7 @@ then
     modify($c) { addCareerArea($a) }
 end
 
-rule "Get "
+rule "If career areas list is empty, take all"
 salience 1
 lock-on-active true
 when
