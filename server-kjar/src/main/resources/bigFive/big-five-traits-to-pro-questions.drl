@@ -4,6 +4,7 @@ import com.academic.adviser.model.CareerArea;
 import com.academic.adviser.constants.BigFiveTraitLevel;
 import com.academic.adviser.drools.model.Traits;
 import com.academic.adviser.drools.model.CareerAreas;
+import java.util.ArrayList
 import java.lang.Math;
 
 global Double extroversionWeight;
@@ -125,4 +126,14 @@ when
     )
 then
     modify($c) { addCareerArea($a) }
+end
+
+rule "Get "
+salience 1
+lock-on-active true
+when
+    $c: CareerAreas(careerAreas.size() == 0)
+    $all: ArrayList() from collect( CareerArea() )
+then
+    modify($c) { addAllAreas($all) }
 end

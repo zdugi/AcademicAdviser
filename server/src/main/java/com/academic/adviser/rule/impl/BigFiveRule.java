@@ -73,7 +73,7 @@ public class BigFiveRule implements Rule {
         CareerAreas careerAreas = new CareerAreas();
         Traits traits = new Traits();
         session.insert(traits);
-        session.insert(careerAreas);
+
         for(CareerArea careerArea : careerAreaRepository.findAll()) {
             session.insert(careerArea);
         }
@@ -83,6 +83,7 @@ public class BigFiveRule implements Rule {
         System.out.println(firedRules);
 
         session.getAgenda().getAgendaGroup("detect-personality").setFocus();
+        session.insert(careerAreas);
         firedRules = session.fireAllRules();
         System.out.println(firedRules);
 

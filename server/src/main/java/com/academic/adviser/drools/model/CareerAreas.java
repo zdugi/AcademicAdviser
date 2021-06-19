@@ -2,17 +2,18 @@ package com.academic.adviser.drools.model;
 
 import com.academic.adviser.model.CareerArea;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CareerAreas {
 
-    private List<CareerArea> careerAreas;
+    private Set<CareerArea> careerAreas;
     private boolean filled;
 
     public CareerAreas() {
         filled = false;
-        careerAreas = new ArrayList<>();
+        careerAreas = new HashSet<>();
     }
 
     public void addCareerArea(CareerArea careerArea) {
@@ -20,6 +21,10 @@ public class CareerAreas {
         if(careerAreas.size() == 3) {
             filled = true;
         }
+    }
+
+    public void addAllAreas(List<CareerArea> careerAreaList) {
+        careerAreas.addAll(careerAreaList);
     }
 
     public boolean isFilled() {
@@ -30,7 +35,7 @@ public class CareerAreas {
         this.filled = filled;
     }
 
-    public List<CareerArea> getCareerAreas() {
+    public Set<CareerArea> getCareerAreas() {
         return careerAreas;
     }
 }
