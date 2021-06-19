@@ -72,6 +72,13 @@ export default {
     },
     pairHandler(index, questionNum) {
       let pair = this.careerTest[index];
+      
+      if (questionNum == 0 && (pair.questionAScore > 2 || pair.questionAScore < 0))
+        pair.questionAScore = null
+
+      if (questionNum == 1 && (pair.questionBScore > 2 || pair.questionBScore < 0))
+        pair.questionBScore = null
+
       if (
         (pair.questionAScore == 2 && pair.questionBScore == 2) ||
         (pair.questionAScore == 1 && pair.questionBScore == 1) ||
@@ -87,17 +94,12 @@ export default {
   },
   mounted() {
     for (let pair of this.$store.state.careerQuestions.questions) {
-      let a = Math.floor(Math.random() * 3);
-      let b = a;
-      do {
-        b = Math.floor(Math.random() * 3);
-      } while (a === b);
       this.careerTest.push({
         id: pair.id,
         questionA: pair.questionA,
         questionB: pair.questionB,
-        questionAScore: a,
-        questionBScore: b,
+        questionAScore: null,
+        questionBScore: null
       });
     }
   },
